@@ -16,8 +16,8 @@ class App extends Component {
        <Router>
        <Navmenu/>
          <Switch>
-           <Route exact path="/" Component={Index}/>
-          <Route exact path="/login" Component={Login}/>
+           <Route exact path="/" component={Index}/>
+          <Route exact path="/login" component={Login}/>
          </Switch>
        </Router>
       </div>
