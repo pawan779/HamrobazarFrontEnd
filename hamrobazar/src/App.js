@@ -6,6 +6,7 @@ import './App.css';
 import Navmenu from './components/Navmenu';
 import Login from './components/Login';
 import Index from './components/Index';
+import Register from './components/Register';
 
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
          <Switch>
            <Route exact path="/" component={Index}/>
           <Route exact path="/login" component={Login}/>
+          <Route exact path="/register" component={Register}/>
          </Switch>
        </Router>
       </div>
