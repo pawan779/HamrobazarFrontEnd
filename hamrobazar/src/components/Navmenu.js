@@ -8,19 +8,23 @@ import {
     Form,
     Button
 } from "react-bootstrap";
+import {Link} from 'react-router-dom'
 
 export default class Navmenu extends Component {
     render() {
         return (
             <div>
                 <Navbar bg="light" expand="sm">
-                    <Navbar.Brand href="#home">Hamrobazar</Navbar.Brand>
+                    <Navbar.Brand> <Nav.Link as={Link} to="/">Hamrobazar</Nav.Link></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="#home">Home</Nav.Link>
-                            <Nav.Link href="#link">About Us</Nav.Link>
-                            {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+
+                          <Nav.Link as={Link} to="/">Home</Nav.Link>
+                          <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                            {/* <Nav.Link href="#home">Home</Nav.Link>
+                            <Nav.Link href="#link">About Us</Nav.Link> */}
+                            {/* <NavDropdown title="Dro</Nav.Link>pdown" id="basic-nav-dropdown">
 							<NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
 							<NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
@@ -29,7 +33,7 @@ export default class Navmenu extends Component {
 						</NavDropdown> */}
                         </Nav>
 
-                        <Button className="mr-sm-2 btn btn-dark">Login
+                        <Button as={Link} to="/login" className="mr-sm-2 btn btn-dark">Login
                         </Button>
 
                     </Navbar.Collapse>
