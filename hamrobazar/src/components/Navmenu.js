@@ -13,18 +13,19 @@ import {Link} from 'react-router-dom'
 export default class Navmenu extends Component {
     render() {
 
-      
         return (
             <div>
-                <Navbar bg="light" expand="sm">
-                    <Navbar.Brand> <Nav.Link as={Link} to="/">Hamrobazar</Nav.Link></Navbar.Brand>
+                <Navbar bg="light" id="Navbar" expand="sm">
+                    <Navbar.Brand>
+                        <Nav.Link as={Link} to="/">Hamrobazar</Nav.Link>
+                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
 
-                          <Nav.Link as={Link} to="/">Home</Nav.Link>
-                          <Nav.Link as={Link} to="#">About</Nav.Link>
-                          <Nav.Link as={Link} to="#">Contact</Nav.Link>
+                            <Nav.Link as={Link} to="/">Home</Nav.Link>
+                            <Nav.Link as={Link} to="#">About</Nav.Link>
+                            <Nav.Link as={Link} to="#">Contact</Nav.Link>
                             {/* <Nav.Link href="#home">Home</Nav.Link>
                             <Nav.Link href="#link">About Us</Nav.Link> */}
                             {/* <NavDropdown title="Dro</Nav.Link>pdown" id="basic-nav-dropdown">
