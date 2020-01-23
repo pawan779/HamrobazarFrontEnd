@@ -20,8 +20,8 @@ export default class Navmenu extends Component {
                         <Nav className="mr-auto">
 
                             <Nav.Link className="text-light"as={Link} to="/">Home</Nav.Link>
-                            <Nav.Link className="text-light"as={Link} to="#">About</Nav.Link>
-                            <Nav.Link className="text-light"as={Link} to="#">Contact</Nav.Link>
+                            <Nav.Link className="text-light"as={Link} to="/about">About</Nav.Link>
+                            <Nav.Link className="text-light"as={Link} to="/contact">Contact</Nav.Link>
                             {/* <Nav.Link href="#home">Home</Nav.Link>
                             <Nav.Link href="#link">About Us</Nav.Link> */}
                             {/* <NavDropdown title="Dro</Nav.Link>pdown" id="basic-nav-dropdown">
