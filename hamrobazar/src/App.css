@@ -22,7 +22,22 @@
   background-color: #3AADD1 !important;
 
 }
-
+.login, .register
+{
+  padding: 20px;
+  border: 1px solid #000;
+  background: #3e3d3f;
+  box-shadow: 5px 5px 5px #000;
+  color: #fff;
+  width: 100%;
+  margin: 0px auto;
+  border-radius: 20px;
+}
+.register .register-image
+{
+  width: 200px;
+  height: 200px
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

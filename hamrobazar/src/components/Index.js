@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 
+import { Container } from 'reactstrap'
+
 export default class Index extends Component {
     render() {
         return (
-            <div>
-                <h1>My name is Pawan Dharel</h1>
-            </div>
+          <Container>
+              <h1 className="text-center">Welcome to Hamrobazr </h1>
+          </Container>
         )
     }
 }

@@ -1,11 +1,7 @@
 import React, {Component} from 'react'
-
 import {
     Navbar,
     Nav,
-    NavDropdown,
-    FormControl,
-    Form,
     Button
 } from "react-bootstrap";
 import {Link} from 'react-router-dom'
@@ -17,15 +13,15 @@ export default class Navmenu extends Component {
             <div>
                 <Navbar bg="light" id="Navbar" expand="sm">
                     <Navbar.Brand>
-                        <Nav.Link as={Link} to="/">Hamrobazar</Nav.Link>
+                        <Nav.Link as={Link} to="/" className="text-dark">Hamrobazar</Nav.Link>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
 
-                            <Nav.Link as={Link} to="/">Home</Nav.Link>
-                            <Nav.Link as={Link} to="#">About</Nav.Link>
-                            <Nav.Link as={Link} to="#">Contact</Nav.Link>
+                            <Nav.Link className="text-light"as={Link} to="/">Home</Nav.Link>
+                            <Nav.Link className="text-light"as={Link} to="#">About</Nav.Link>
+                            <Nav.Link className="text-light"as={Link} to="#">Contact</Nav.Link>
                             {/* <Nav.Link href="#home">Home</Nav.Link>
                             <Nav.Link href="#link">About Us</Nav.Link> */}
                             {/* <NavDropdown title="Dro</Nav.Link>pdown" id="basic-nav-dropdown">
