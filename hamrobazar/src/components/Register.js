@@ -149,8 +149,8 @@ class Register extends Component {
         return (
 
             <Container>
-                <Col md="6" className="register">
-                <h1 className="">Register</h1>
+                <Col md="6" className="register ">
+                <h1 className="m-2 text-center">Register</h1>
 
                 <Form onSubmit={this.handleSubmit}>
 

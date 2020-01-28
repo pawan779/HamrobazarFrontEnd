@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { Container } from 'reactstrap'
 
 class Contact extends Component {
     render() {
         return (
-            <div>
+           <Container>
+                
                 <h1>Contact Us</h1>
 
                 <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam voluptas, rem deleniti sunt, excepturi beatae error illum asperiores quod, amet fugit delectus. Illum est ullam quasi magnam! Sapiente, officia accusamus.
@@ -16,7 +18,7 @@ class Contact extends Component {
                 Accusamus autem necessitatibus, doloribus sed quod aliquid, voluptas obcaecati itaque, veniam vitae distinctio voluptates magnam! Molestiae quos explicabo numquam magni incidunt ad expedita repellat, excepturi, ratione delectus, officiis illo laboriosam.
                 Iure repellat corrupti, cumque blanditiis in qui eaque aliquam natus fuga suscipit quos rem vel voluptate quaerat quia dolores, laborum facere expedita, adipisci illo iste? Provident eligendi nam minima magnam!
                 Adipisci magnam fugiat officia odio saepe suscipit ut quasi deserunt iste, itaque ab et eum assumenda excepturi ducimus ipsum doloremque quis! Ab, consequuntur illo? Iusto delectus voluptatem nulla facilis tempore!</span>
-            </div>
+                </Container>
         )
     }
 }
