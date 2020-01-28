@@ -19,9 +19,9 @@ class Register extends Component {
         this.state = {
             fullName: '',
             address1: '',
-            address2:'',
-            address3:'',
-            phone:'',
+            address2: '',
+            address3: '',
+            phone: '',
             email: '',
             password: '',
             nameError: '',
@@ -32,6 +32,7 @@ class Register extends Component {
             emailError: '',
             passwordError: '',
             selectedFile: '',
+            checkValidImage:'',
             redirect: false
         }
     }
@@ -60,7 +61,6 @@ class Register extends Component {
         let emailError = "";
         let passwordError = "";
 
-
         if (!this.state.fullName) {
             nameError = "Full name cannot be empty";
         }
@@ -73,7 +73,7 @@ class Register extends Component {
         if (!this.state.address3) {
             address3Error = "Address 3 cannot be empty"
         }
-        if (this.state.phone.length!=10) {
+        if (this.state.phone.length != 10) {
             phoneError = "phone number should be of 10 digit"
         }
         if (!this.state.email.includes("@")) {
@@ -82,8 +82,16 @@ class Register extends Component {
         if (this.state.password.length < 6) {
             passwordError = "Password should be greater than 6"
         }
-        if (nameError || address1Error || address2Error ||address3Error || phoneError ||emailError || passwordError) {
-            this.setState({nameError, address1Error,address2Error,address3Error,phoneError, emailError, passwordError})
+        if (nameError || address1Error || address2Error || address3Error || phoneError || emailError || passwordError) {
+            this.setState({
+                nameError,
+                address1Error,
+                address2Error,
+                address3Error,
+                phoneError,
+                emailError,
+                passwordError
+            })
             return false;
         }
         return true;
@@ -97,37 +105,46 @@ class Register extends Component {
             var headers = {
                 'Content-Type': 'application/json'
             }
-            var date=Date();
 
             const fd = new FormData();
-            fd.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
+            const imageName=this.state.selectedFile.name.toLowerCase();
+            fd.append('imageFile', this.state.selectedFile, imageName );
             Axios
                 .post('http://192.168.1.21:3001/upload', fd)
                 .then(res => {
                     console.log(res);
-                })
-            var data = {
-                fullName: this.state.fullName,
-                address1: this.state.address1,
-                address2:this.state.adress2,
-                address3:this.state.adress3,
-                phone:this.state.phone,
-                email: this.state.email,
-                password: this.state.password,
-                image: 'imageFile-' + this.state.selectedFile.name
-            }
-            Axios
-                .post('http://192.168.1.21:3001/users/register', data, headers)
-                .then((response) => {
-                    console.log(response)
-                    if (response.status == 200) {
-                        this.setState({redirect: true})
+                    var data = {
+                        fullName: this.state.fullName,
+                        address1: this.state.address1,
+                        address2: this.state.adress2,
+                        address3: this.state.adress3,
+                        phone: this.state.phone,
+                        email: this.state.email,
+                        password: this.state.password,
+                        image: 'imageFile-' + imageName
                     }
+                    Axios
+                        .post('http://192.168.1.21:3001/users/register', data, headers)
+                        .then((response) => {
+                            console.log(response)
+                            if (response.status == 200) {
+                                this.setState({redirect: true})
+                            }
+        
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            
+                        })
 
                 })
                 .catch((err) => {
                     console.log(err)
+                    this.setState({
+                        checkValidImage:"Image is not valid"
+                    })
                 })
+                
         }
     }
     render()
@@ -150,133 +167,137 @@ class Register extends Component {
 
             <Container>
                 <Col md="6" className="register ">
-                <h1 className="m-2 text-center">Register</h1>
+                    <h1 className="m-2 text-center">Register</h1>
 
-                <Form onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSubmit}>
 
-                    <FormGroup>
+                        <FormGroup>
 
-                        <div>
-                            <input
-                                type="file"
-                                inputProps={{ accept: 'image/*' }}
-                                name="avatar"
-                                onChange={this.handleFileSelected}
-                                ref={fileInput => this.fileInput = fileInput}/> 
-                                
-                                {$imagePreview}
-                        </div>
-
-                    </FormGroup>
-                    <FormGroup>
-                        {/*
+                            <div>
+                                <input
+                                    type="file"
+                                    inputProps={{
+                                    accept: 'image/*'
+                                }}
+                                    name="avatar"
+                                    onChange={this.handleFileSelected}
+                                    ref={fileInput => this.fileInput = fileInput}/> {$imagePreview}
+                            </div>
+                            {this.state.checkValidImage
+                                ? (
+                                    <Alert>{this.state.checkValidImage}</Alert>
+                                )
+                                : null
+}
+                        </FormGroup>
+                        <FormGroup>
+                            {/*
                         <Input type="file" className="form-control" onChange={this.handleFileSelected}/> */}
 
-                        <Input
-                            type="text"
-                            name="fullName"
-                            className="form-control"
-                            value={this.state.fname}
-                            onChange={this.handleChange}placeholder="Full Name"/> {this.state.nameError
-                            ? (
-                                <Alert color="danger" size="sm" className="mt-2">
-                                    {this.state.nameError}</Alert>
-                            )
-                            : null}
+                            <Input
+                                type="text"
+                                name="fullName"
+                                className="form-control"
+                                value={this.state.fname}
+                                onChange={this.handleChange}placeholder="Full Name"/> {this.state.nameError
+                                ? (
+                                    <Alert color="danger" size="sm" className="mt-2">
+                                        {this.state.nameError}</Alert>
+                                )
+                                : null}
 
-                    </FormGroup>
-                    <FormGroup>
-
-                        <Input
-                            type="text"
-                            name="address1"
-                            className="form-control "
-                            value={this.state.address}
-                            onChange={this.handleChange}placeholder="Address"/> {this.state.address1Error
-                            ? (
-                                <Alert color="danger" size="sm" className="mt-2">
-                                    {this.state.address1Error}</Alert>
-                            )
-                            : null}
-                    </FormGroup>
-                    <FormGroup>
-
-                        <Input
-                            type="text"
-                            name="address2"
-                            className="form-control "
-                            value={this.state.address2}
-                            onChange={this.handleChange}placeholder="Address2"/> {this.state.address2Error
-                            ? (
-                                <Alert color="danger" size="sm" className="mt-2">
-                                    {this.state.address2Error}</Alert>
-                            )
-                            : null}
-                    </FormGroup>
-
-                    <FormGroup>
+                        </FormGroup>
                         <FormGroup>
 
                             <Input
                                 type="text"
-                                name="address3"
+                                name="address1"
                                 className="form-control "
-                                value={this.state.address3}
-                                onChange={this.handleChange}placeholder="Address3"/> {this.state.address3Error
+                                value={this.state.address}
+                                onChange={this.handleChange}placeholder="Address"/> {this.state.address1Error
                                 ? (
                                     <Alert color="danger" size="sm" className="mt-2">
-                                        {this.state.address3Error}</Alert>
+                                        {this.state.address1Error}</Alert>
+                                )
+                                : null}
+                        </FormGroup>
+                        <FormGroup>
+
+                            <Input
+                                type="text"
+                                name="address2"
+                                className="form-control "
+                                value={this.state.address2}
+                                onChange={this.handleChange}placeholder="Address2"/> {this.state.address2Error
+                                ? (
+                                    <Alert color="danger" size="sm" className="mt-2">
+                                        {this.state.address2Error}</Alert>
                                 )
                                 : null}
                         </FormGroup>
 
                         <FormGroup>
+                            <FormGroup>
 
+                                <Input
+                                    type="text"
+                                    name="address3"
+                                    className="form-control "
+                                    value={this.state.address3}
+                                    onChange={this.handleChange}placeholder="Address3"/> {this.state.address3Error
+                                    ? (
+                                        <Alert color="danger" size="sm" className="mt-2">
+                                            {this.state.address3Error}</Alert>
+                                    )
+                                    : null}
+                            </FormGroup>
+
+                            <FormGroup>
+
+                                <Input
+                                    type="text"
+                                    name="phone"
+                                    className="form-control "
+                                    value={this.state.phone}
+                                    onChange={this.handleChange}placeholder="Phone Number"/> {this.state.phoneError
+                                    ? (
+                                        <Alert color="danger" size="sm" className="mt-2">
+                                            {this.state.phoneError}</Alert>
+                                    )
+                                    : null}
+                            </FormGroup>
                             <Input
                                 type="text"
-                                name="phone"
-                                className="form-control "
-                                value={this.state.phone}
-                                onChange={this.handleChange}placeholder="Phone Number"/> {this.state.phoneError
+                                name="email"
+                                className="form-control"
+                                value={this.state.email}
+                                onChange={this.handleChange}placeholder="Email"/> {this.state.emailError
                                 ? (
                                     <Alert color="danger" size="sm" className="mt-2">
-                                        {this.state.phoneError}</Alert>
+                                        {this.state.emailError}</Alert>
                                 )
                                 : null}
                         </FormGroup>
-                        <Input
-                            type="text"
-                            name="email"
-                            className="form-control"
-                            value={this.state.email}
-                            onChange={this.handleChange}placeholder="Email"/> {this.state.emailError
-                            ? (
-                                <Alert color="danger" size="sm" className="mt-2">
-                                    {this.state.emailError}</Alert>
-                            )
-                            : null}
-                    </FormGroup>
-                    <FormGroup>
+                        <FormGroup>
 
-                        <Input
-                            type="Password"
-                            name="password"
-                            className="form-control"
-                            value={this.state.password}
-                            onChange={this.handleChange}placeholder="Password"/> {this.state.passwordError
-                            ? (
-                                <Alert color="danger" size="sm" className="mt-2">
-                                    {this.state.passwordError}</Alert>
-                            )
-                            : null}
-                    </FormGroup>
+                            <Input
+                                type="Password"
+                                name="password"
+                                className="form-control"
+                                value={this.state.password}
+                                onChange={this.handleChange}placeholder="Password"/> {this.state.passwordError
+                                ? (
+                                    <Alert color="danger" size="sm" className="mt-2">
+                                        {this.state.passwordError}</Alert>
+                                )
+                                : null}
+                        </FormGroup>
 
-                    <Button varient="primary" type="submit">Submit</Button>
-                </Form>
+                        <Button varient="primary" type="submit">Submit</Button>
+                    </Form>
                 </Col>
             </Container>
         )
     }
 }
 export default Register
-

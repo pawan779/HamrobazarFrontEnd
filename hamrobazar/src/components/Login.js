@@ -7,7 +7,8 @@ import {
     Input,
     Button,
     FormText,
-    Col
+    Col,
+    Alert
 } from 'reactstrap'
 import {Link, Redirect} from 'react-router-dom'
 import axios from 'axios'
@@ -18,7 +19,8 @@ export default class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            isLoggedIn: false
+            isLoggedIn: false,
+            checkError:''
 
         }
     }
@@ -38,7 +40,8 @@ export default class Login extends Component {
             })
             .catch((err) => {
                 console.log(err.response)
-                this.setState({email: '', password: ''})
+                this.setState({email: '', password: '',checkError:"Invalid email or password"
+            })
             })
 
     }
@@ -51,6 +54,14 @@ export default class Login extends Component {
             <Container >
                 <Col md={6} className="login">
                     <h3 className="text-center m-2">Login Form</h3>
+
+                    {
+                        this.state.checkError ? (
+                        <Alert>
+                            {this.state.checkError}
+                        </Alert>)
+                        :null
+                    }
                     <Form onSubmit={this.submitForm}>
                         <FormGroup>
                             <Label for='email'>Email</Label>
