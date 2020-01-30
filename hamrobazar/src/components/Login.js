@@ -32,7 +32,7 @@ export default class Login extends Component {
     submitForm = (event) => {
         event.preventDefault();
         axios
-            .post('http://localhost:3001/users/login', this.state)
+            .post('http://192.168.1.21:3001/users/login', this.state)
             .then((response) => {
                 console.log(response.data)
                 localStorage.setItem('token', response.data.token)

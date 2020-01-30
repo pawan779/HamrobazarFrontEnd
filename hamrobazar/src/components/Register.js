@@ -32,7 +32,7 @@ class Register extends Component {
             emailError: '',
             passwordError: '',
             selectedFile: '',
-            checkValidImage:'',
+            checkValidImage: '',
             redirect: false
         }
     }
@@ -107,8 +107,12 @@ class Register extends Component {
             }
 
             const fd = new FormData();
-            const imageName=this.state.selectedFile.name.toLowerCase();
-            fd.append('imageFile', this.state.selectedFile, imageName );
+            const imageName = this
+                .state
+                .selectedFile
+                .name
+                .toLowerCase();
+            fd.append('imageFile', this.state.selectedFile, imageName);
             Axios
                 .post('http://192.168.1.21:3001/upload', fd)
                 .then(res => {
@@ -130,21 +134,19 @@ class Register extends Component {
                             if (response.status == 200) {
                                 this.setState({redirect: true})
                             }
-        
+
                         })
                         .catch((err) => {
                             console.log(err)
-                            
+
                         })
 
                 })
                 .catch((err) => {
                     console.log(err)
-                    this.setState({
-                        checkValidImage:"Image is not valid"
-                    })
+                    this.setState({checkValidImage: "Image is not valid"})
                 })
-                
+
         }
     }
     render()

@@ -14,11 +14,11 @@ export default class Index extends Component {
     }
     componentDidMount()
     {
-        axios.get("http://localhost:3001/products")
+        axios.get("http://192.168.1.21:3001/products")
         .then(res=>{
             console.log(res)
             this.setState({posts:res.data,
-            path:'http://localhost:3001/uploads/'})
+            path:'http://192.168.1.21:3001/uploads/'})
         })
        
         .catch(err=>{
@@ -36,8 +36,6 @@ export default class Index extends Component {
                 {
                     posts.length ?
                     posts.map(post=> <div key={post._id}>{post.productName}{post.productPrice}{post.image} {post.createdAt}
-
-
                     <img src={this.state.path+post.image}></img>
                     </div>)
                     :null
