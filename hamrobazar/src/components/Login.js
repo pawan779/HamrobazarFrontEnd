@@ -20,7 +20,7 @@ export default class Login extends Component {
             email: '',
             password: '',
             isLoggedIn: false,
-            checkError:''
+            checkError: ''
 
         }
     }
@@ -32,7 +32,7 @@ export default class Login extends Component {
     submitForm = (event) => {
         event.preventDefault();
         axios
-            .post('http://192.168.1.21:3001/users/login', this.state)
+            .post('http://localhost:3001/users/login', this.state)
             .then((response) => {
                 console.log(response.data)
                 localStorage.setItem('token', response.data.token)
@@ -40,8 +40,7 @@ export default class Login extends Component {
             })
             .catch((err) => {
                 console.log(err.response)
-                this.setState({email: '', password: '',checkError:"Invalid email or password"
-            })
+                this.setState({email: '', password: '', checkError: "Invalid email or password"})
             })
 
     }
@@ -55,13 +54,14 @@ export default class Login extends Component {
                 <Col md={6} className="login">
                     <h3 className="text-center m-2">Login Form</h3>
 
-                    {
-                        this.state.checkError ? (
-                        <Alert>
-                            {this.state.checkError}
-                        </Alert>)
-                        :null
-                    }
+                    {this.state.checkError
+                        ? (
+                            <Alert>
+                                {this.state.checkError}
+                            </Alert>
+                        )
+                        : null
+}
                     <Form onSubmit={this.submitForm}>
                         <FormGroup>
                             <Label for='email'>Email</Label>

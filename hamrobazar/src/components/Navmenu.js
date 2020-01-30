@@ -5,8 +5,33 @@ import {
     Button
 } from "react-bootstrap";
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 export default class Navmenu extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             user:{},
+             config:{headers:{'Authorization':`Bearer ${localStorage.getItem('token')}`},
+             login:''
+            }
+        }
+    }
+    
+    componentDidMount(){
+        axios.get('http://localhost:3001/users/me', this.state.config)
+        .then((response)=>{
+            this.setState({
+                user:response.data
+            })
+        })
+        .catch((err)=>{
+            this.setState({
+                login:'Login'
+            })
+        })
+    }
     render() {
 
         return (
@@ -32,9 +57,15 @@ export default class Navmenu extends Component {
 							<NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
 						</NavDropdown> */}
                         </Nav>
-
-                        <Button as={Link} to="/login" className="mr-sm-2 btn btn-dark">Login
-                        </Button>
+{
+    this.state.user ?(
+        <Button as={Link} to="/" className="mr-sm-2 btn btn-dark">{this.state.user.fullName}
+        </Button>
+    )
+    : <Button as={Link} to="/login" className="mr-sm-2 btn btn-dark">{this.state.login}
+    </Button>
+}
+                       
 
                     </Navbar.Collapse>
                 </Navbar>
