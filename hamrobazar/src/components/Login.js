@@ -20,7 +20,8 @@ export default class Login extends Component {
             email: '',
             password: '',
             isLoggedIn: false,
-            checkError: ''
+            checkError: '',
+            isAdmin: ''
 
         }
     }
@@ -34,9 +35,15 @@ export default class Login extends Component {
         axios
             .post("http://192.168.1.21:3001/users/login", this.state)
             .then((response) => {
-                console.log(response.data)
+                console.log(response)
                 localStorage.setItem('token', response.data.token)
-                this.setState({isLoggedIn: true})
+
+                if (response.data.admin === true) {
+                    this.setState({isAdmin: true})
+                } else {
+                    this.setState({isAdmin: false})
+                }
+
             })
             .catch((err) => {
                 console.log(err.response)
@@ -45,8 +52,13 @@ export default class Login extends Component {
 
     }
     render() {
-        if (this.state.isLoggedIn === true) {
+        if (this.state.isAdmin === true) {
             return <Redirect to="/"/>
+        }
+        if 
+            (this.state.isAdmin === false)
+            {
+                return <Redirect to="/dashboard"/>
         }
 
         return (
