@@ -40,8 +40,10 @@ export default class Login extends Component {
 
                 if (response.data.admin === true) {
                     this.setState({isAdmin: true})
+                    localStorage.setItem('admin', response.data.admin)
                 } else {
                     this.setState({isAdmin: false})
+                    localStorage.setItem('user', response.data.admin)
                 }
 
             })

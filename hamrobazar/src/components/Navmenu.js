@@ -60,7 +60,7 @@ export default class Navmenu extends Component {
                                     <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                                 </NavDropdown>
                             )
-                            : <Link to="/login" color="primary">Login</Link>
+                            : <Link to="/login" color="light">Login</Link>
 }
 
                     </Navbar.Collapse>

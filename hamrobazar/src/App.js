@@ -11,6 +11,7 @@ import Contact from './components/Contact';
 import UserNav from './components/User/Usernav';
 import Dashboard from './components/User/Dashboard';
 import Userrouter from './components/Userrouter';
+import Admindashboard from './components/Admin/Admindashboard';
 
 class App extends Component {
     render() {
@@ -27,6 +28,7 @@ class App extends Component {
                     <Switch>
                     <Route exact path="/" component={Userrouter}/>
                     <Route exact path="/dashboard" component={Dashboard}/>
+                    <Route exact path="/admin/dashboard" component={Admindashboard}/>
                       
                         {/* <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
