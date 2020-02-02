@@ -1,8 +1,46 @@
 import React, { Component } from 'react'
 import { Container } from 'reactstrap'
+import { Redirect } from 'react-router-dom'
 
 class Contact extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            config: {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            },
+            notLoggedIn: false
+        }
+    }
+
+    // config:{     headers:{'Authorization':`Bearer
+    // ${localStorage.getItem('token')}`}
+
+    componentWillMount()
+    {
+        if (localStorage.getItem('token')) {
+            this.setState({
+                token: localStorage.getItem('token')
+            })
+
+        } else {
+            this.setState({notLoggedIn: true})
+        }
+    }
+    // componentDidMount() {
+    //     axios
+    //         .get('http://192.168.1.21:3001/users/me', this.state.config
+    //     )
+    //         .then((response) => {})
+    //         .catch((err) => {})
+    // }
+
     render() {
+            if(this.state.notLoggedIn)
+            {
+                <Redirect to="/login"/>
+            } 
         return (
            <Container>
                 

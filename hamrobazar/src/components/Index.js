@@ -14,11 +14,11 @@ export default class Index extends Component {
     }
     componentDidMount()
     {
-        axios.get("http://192.168.1.21:3001/products")
+        axios.get("http://localhost:3001/products")
         .then(res=>{
             console.log(res)
             this.setState({posts:res.data,
-            path:'http://192.168.1.21:3001/uploads/'})
+            path:'http://localhost:3001/uploads/'})
         })
        
         .catch(err=>{

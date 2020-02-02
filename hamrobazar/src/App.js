@@ -10,6 +10,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import UserNav from './components/User/Usernav';
 import Dashboard from './components/User/Dashboard';
+import Userrouter from './components/Userrouter';
 
 class App extends Component {
     render() {
@@ -18,19 +19,21 @@ class App extends Component {
 
                 <Router>
              
-                <Dashboard/>
+              
                    
-
+                
+                {/* <Navmenu/> */}
                    
                     <Switch>
-                    <Navmenu/>
-                        <Route exact path="/" component={Index}/>
-                        <Route exact path="/login" component={Login}/>
+                    <Route exact path="/" component={Userrouter}/>
+                    <Route exact path="/dashboard" component={Dashboard}/>
+                      
+                        {/* <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/about" component={About}/>
-                        <Route exact path="/contact" component={Contact}/>
+                        <Route exact path="/contact" component={Contact}/> */}
                     </Switch>
-                   
+                 
                 </Router>
 
             </div>
