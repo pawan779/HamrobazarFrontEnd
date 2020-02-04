@@ -19,7 +19,7 @@ export default class Adminnav extends Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
 
-                        <Nav.Link className="text-light"as={Link} to="/admin/dashboard">User Dashboard</Nav.Link>
+                        <Nav.Link className="text-light"as={Link} to="/admin/dashboard">Admin Dashboard</Nav.Link>
                         <Nav.Link className="text-light"as={Link} to="/admin/dashboard/product">All Products</Nav.Link>
                         <Nav.Link className="text-light"as={Link} to="/admin/dashboard/myproduct">My Product</Nav.Link>
                     </Nav>

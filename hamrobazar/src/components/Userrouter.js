@@ -7,6 +7,7 @@ import Register from './Register';
 import About from './About';
 import Contact from './Contact';
 import Navmenu from './Navmenu'
+import Logout from './Logout';
 
 
 
@@ -28,6 +29,7 @@ class Userrouter extends Component {
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/about" component={About}/>
                         <Route exact path="/contact" component={Contact}/>
+                        <Route exact path="/logout" component={Logout}/>
                     </Switch>
                  
                 </Router>

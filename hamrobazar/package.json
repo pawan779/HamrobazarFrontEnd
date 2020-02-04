@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/react-fontawesome": "github:fortawesome/react-fontawesome",
+    "@trendmicro/react-sidenav": "^0.5.0",
     "antd": "^3.26.7",
     "axios": "^0.19.1",
     "bootstrap": "^4.4.1",

@@ -53,7 +53,7 @@ export default class Navmenu extends Component {
                                     title={this.state.user.fullName}
                                     className="mr-sm-2 btn btn-dark"
                                     id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/logout">Logout</NavDropdown.Item>
                                     <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                                     <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                                     <NavDropdown.Divider/>

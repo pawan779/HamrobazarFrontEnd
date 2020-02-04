@@ -13,11 +13,11 @@ export default class Myproduct extends Component {
         super(props)
 
         this.state = {
-            // config: {
-            //     headers: {
-            //         'Authorization': `Bearer ${localStorage.getItem('token')}`
-            //     }
-            // },
+            config: {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            },
             notLoggedIn: false,
             product: {},
             path: ''
@@ -40,7 +40,7 @@ export default class Myproduct extends Component {
     }
     componentDidMount() {
         axios
-            .get('http://192.168.1.21:3001/products/me')
+            .get('http://192.168.1.21:3001/products/my',this.state.config)
             .then((response) => {
                 console.log(response)
                 this.setState({product: response.data, path: 'http://192.168.1.21:3001/uploads/'})

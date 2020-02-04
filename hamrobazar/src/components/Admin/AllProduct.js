@@ -50,7 +50,7 @@ export default class AllProduct extends Component {
                             <CardSubtitle>Price: Rs.{product.productPrice}</CardSubtitle>
 
                 <CardText>{product.productDescription}</CardText>
-                           <CardLink className="btn btn-primary"> <Link className="text-light" to="/admin/dashboard/myproduct">Edit</Link></CardLink>
+                           <CardLink className="btn btn-primary"> <Link className="text-light" to="/admin/dashboard//product/verifyproduct">Edit</Link></CardLink>
                            <CardLink className="btn btn-danger"> <Link className="text-light" to="/admin/dashboard/myproduct">Delete</Link></CardLink>
                         </CardBody>
                     </Card>

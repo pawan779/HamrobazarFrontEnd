@@ -9,6 +9,8 @@ import PrivateRoute from '../Utils/PrivateRoute'
 import Adminnav from './Adminnav'
 import AdminRoute from '../Utils/AdminRoute'
 import AllProduct from './AllProduct'
+import VerifyProduct from './VerifyProduct'
+
 
 export default class Admindashboard extends Component {
   
@@ -21,10 +23,14 @@ export default class Admindashboard extends Component {
                 <Router>
                 <AdminRoute path="/admin/dashboard" component={Adminnav}/>
                     <Switch>
-                       
+                   
                         <AdminRoute exact path="/admin/dashboard" component={AllProduct}/>
+                      
                         <Route path="/admin/dashboard/product" component={AllProduct}/>
+
                         <Route path="/admin/dashboard/myproduct" component={Myproduct}/>
+                        <Route path="/admin/dashboard/product/verifyproduct" component={VerifyProduct}/>
+                      
                     </Switch>
                 </Router>
 
