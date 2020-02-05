@@ -10,18 +10,11 @@ export default class VerifyProduct extends Component {
         }
     }
 
-    // sendID(product)
-    // {
-    //     alert("product")
-    // }
-    componentWillMount()
-    {
-        Axios.get("http://192.168.1.21:3001/my/")
-    }
+
     render() {
         return (
             <div>
-                
+                <h1>Thasdjkasd os</h1>
             </div>
         )
     }

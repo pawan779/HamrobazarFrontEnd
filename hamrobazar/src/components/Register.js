@@ -107,12 +107,8 @@ class Register extends Component {
             }
 
             const fd = new FormData();
-            const imageName = this
-                .state
-                .selectedFile
-                .name
-                .toLowerCase();
-            fd.append('imageFile', this.state.selectedFile, imageName);
+         
+            fd.append('imageFile', this.state.selectedFile,this.state.selectedFile.name);
             Axios
                 .post('http://localhost:3001/upload', fd)
                 .then(res => {
@@ -125,7 +121,7 @@ class Register extends Component {
                         phone: this.state.phone,
                         email: this.state.email,
                         password: this.state.password,
-                        image: 'imageFile-' + imageName
+                        image: 'imageFile-'+this.state.selectedFile.name
                     }
                     Axios
                         .post('http://localhost:3001/users/register', data, headers)

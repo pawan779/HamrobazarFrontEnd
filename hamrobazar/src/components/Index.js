@@ -14,10 +14,10 @@ export default class Index extends Component {
     }
     componentDidMount()
     {
-        axios.get("http://localhost:3001/products")
-        .then(res=>{
-            console.log(res)
-            this.setState({posts:res.data,
+        axios.get("http://localhost:3001/products/")
+        .then((response)=>{
+            console.log(response)
+            this.setState({posts:response.data,
             path:'http://localhost:3001/uploads/'})
         })
        

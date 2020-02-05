@@ -27,9 +27,9 @@ export default class Admindashboard extends Component {
                         <AdminRoute exact path="/admin/dashboard" component={AllProduct}/>
                       
                         <Route path="/admin/dashboard/product" component={AllProduct}/>
-
+                        <Route exact path="/admin/dashboard/product/verifyproduct" component={VerifyProduct}/>
                         <Route path="/admin/dashboard/myproduct" component={Myproduct}/>
-                        <Route path="/admin/dashboard/product/verifyproduct" component={VerifyProduct}/>
+                    
                       
                     </Switch>
                 </Router>

@@ -11,7 +11,8 @@ import {
     CardSubtitle,
     Row,
     Col,
-    Table
+    Table,
+    Button
 } from 'reactstrap'
 import {Link} from 'react-router-dom'
 
@@ -27,8 +28,7 @@ export default class AllProduct extends Component {
             },
             products: {},
             path: '',
-            name:'',
-            userID:''
+            productID:''
         }
     }
 
@@ -36,22 +36,29 @@ export default class AllProduct extends Component {
 
     componentDidMount() {
         Axios
-            .get("http://192.168.1.21:3001/products")
+            .get("http://192.168.1.21:3001/admin/products",this.state.config)
             .then((response) => {
                 console.log(response.data)
                 this.setState({products: response.data, path: 'http://192.168.1.21:3001/uploads/',userID:response.data.user})
             })
 
     }
-    userHandle(){
-        Axios.get("http://192.168.1.21:3000/users/my/:id",this.state.userID,this.state.config)
-        .then(response=>{
-            console.log(response.data)
-            this.setState({name:response.data.fullName})
-        })
-    }
+    
+verifyProduct=event=>{
+
+    var data={isVerified:true}
+    Axios.put("http://localhost:3001/admin/product/"+event.target.value,data,this.state.config)
+    .then((response)=>{
+            console.log(response)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+      
+}
 
     render() {
+
         const {products} = this.state
         return (
             <Container>
@@ -77,11 +84,21 @@ export default class AllProduct extends Component {
                                     <th scope="row">1</th>
                                     <td>{product.productName}</td>
                                     <td><img src={this.state.path + product.image}width="30%"/></td>
-                    <td>{product.productPrice}</td>
-                    <td>{product.productCondition}</td>
-    <td>{this.state.name}</td>
-    <td>{product.productDescription}</td>
+                                    <td>{product.productPrice}</td>
+                                    <td>{product.productCondition}</td>
+                                    <td>{this.state.name}</td>
+                                     <td>{product.productDescription}</td>
+                                    <td>
 
+                                        {
+                                            product.isVerified===true ?
+                                            (<Button color="success">Verified</Button> )
+                                            :null
+                                        }
+                                  
+                                  <Button color="warning" value={product._id} onClick={this.verifyProduct}>Verfy this</Button>
+
+                                    </td>
                                     </tr>
 
                               

@@ -8,6 +8,7 @@ import About from './About';
 import Contact from './Contact';
 import Navmenu from './Navmenu'
 import Logout from './Logout';
+import Index from './Index';
 
 
 
@@ -24,7 +25,7 @@ class Userrouter extends Component {
                    
                     <Switch>
                        
-                      
+                      <Route exact path="/" component={Index}/>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/about" component={About}/>
