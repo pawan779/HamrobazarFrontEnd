@@ -13,7 +13,7 @@ import {Alert,Container, Card,
     CardLink,
     CardTitle,
     CardSubtitle,
-    Row,
+    Row,Button,
     Col,} from 'reactstrap'
 
 export default class Myproduct extends Component {
@@ -28,7 +28,8 @@ export default class Myproduct extends Component {
             },
             notLoggedIn: false,
             products: {},
-            path: ''
+            path: '',
+            
         }
     }
 
@@ -58,9 +59,6 @@ export default class Myproduct extends Component {
             })
     }
 
-    handleEdit=event=>{
-
-    }
     render() {
         if (this.state.notLoggedIn) { < Redirect to = "/login" />
     } else {
@@ -81,9 +79,14 @@ export default class Myproduct extends Component {
                         <CardSubtitle>{product.productCondition}</CardSubtitle>
                         <CardSubtitle>Price: Rs.{product.productPrice}</CardSubtitle>
                         <CardText>{product.productDescription}</CardText>
-                        <CardLink className="btnbtn-primary" value={product._id}
-                            onClick={this.handleEdit}>Edit</CardLink>
-                        <CardLink className="btn btn-danger">
+                        <CardLink>
+                        <Link to={`/dashboard/product/my/${product._id}`}>
+                            <Button renderAs="button" color="warning">
+                                Edit
+                            </Button>
+                            </Link>
+                            </CardLink>
+                            <CardLink className="btn btn-danger">
                             <Link className="text-light" to="/admin/dashboard/myproduct">Delete</Link>
                         </CardLink>
                     </CardBody>

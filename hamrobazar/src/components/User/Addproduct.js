@@ -30,6 +30,7 @@ export default class Addproduct extends Component {
             selectedFile: '',
             checkValidImage: '',
             redirect: false,
+            imageIs:'',
             config: {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             }
@@ -62,15 +63,18 @@ export default class Addproduct extends Component {
             productNameError = "Full name cannot be empty";
         }
         if (!this.state.productPrice) {
-            productPriceError = "Address 1 cannot be empty"
+            productPriceError = "Product price cannot be empty"
         }
         if (!this.state.productDescription) {
-            productDescriptionError = "Address 2 cannot be empty"
+            productDescriptionError = "Product Description cannot be empty"
         }
         if (!this.state.productCondition) {
-            productConditionError = "Address 3 cannot be empty"
+            productConditionError = "Product Condition cannot be empty"
         }
-       
+       if(this.state.productPrice.length >7)
+       {
+        productPriceError = "Product price exceeds"
+       }
 
         if (productNameError || productPriceError || productDescriptionError || productConditionError || categoryError) {
             this.setState({productNameError, productPriceError, productDescriptionError, productConditionError, categoryError})
@@ -79,56 +83,53 @@ export default class Addproduct extends Component {
         return true;
     }
 
-    handleSubmit = event => {
+    uploadImage = event => {
         event.preventDefault();
-        const isValid = this.validate();
-        if (isValid) {
-
-            var headers = {
-                'Content-Type': 'application/json'
-            }
-
             const fd = new FormData();
-            const imageName = this
-                .state
-                .selectedFile
-                .name
-                .toLowerCase();
-            fd.append('imageFile', this.state.selectedFile, imageName);
+            fd.append('imageFile', this.state.selectedFile,this.state.selectedFile.name);
             Axios
-                .post('http://192.168.1.21:3001/upload', fd)
-                .then(res => {
+                .post('http://localhost:3001/upload', fd)
+                .then((res) => {
                     console.log(res);
-                    var data = {
-                        productName: this.state.productName,
-                        productPrice: this.state.productPrice,
-                        productDescription: this.state.productDescription,
-                        productCondition: this.state.productCondition,
-                        category: this.state.category,
-                        image: 'imageFile-' + imageName
-                    }
-                    Axios
-                        .post('http://192.168.1.21:3001/products/',data,this.state.config)
-                        .then((response) => {
-                            console.log(response.data)
-                            if (response.status == 200) {
-                                this.setState({redirect: true})
-                            }
+                    this.setState({
+                        imageIs:res.data.filename });
+                    })
+                    .catch((err)=>
+                    {
+                        console.log(err)
+                        this.setState({checkValidImage: "Image is not valid"})
+                        return;
+                    })    
 
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                            this.setState({checkValidImage: "Unsucessfull"})
-                        })
-
-                })
-                .catch((err) => {
-                    console.log(err)
-                    this.setState({checkValidImage: "Image is not valid"})
-                })
-
-        }
     }
+
+handleSubmit=event=>{
+    event.preventDefault();
+    const isValid = this.validate();
+    if (isValid) {
+        var data = {
+            productName: this.state.productName,
+            productPrice: this.state.productPrice,
+            productDescription: this.state.productDescription,
+            productCondition: this.state.productCondition,
+            category: this.state.category,
+            image: this.state.imageIs
+        }
+        Axios
+            .post('http://localhost:3001/products',data,this.state.config)
+            .then((response) => {
+                console.log(response.data)
+                if (response.status == 200) {
+                    this.setState({redirect: true})
+                }
+
+            })
+            .catch((err) => {
+                console.log(err)
+                this.setState({checkValidImage: "Unsucessfull"})
+            })
+    }
+}
     render()
     {
         if (this.state.redirect) {
@@ -156,14 +157,18 @@ export default class Addproduct extends Component {
                         <FormGroup>
 
                             <div>
-                                <input
+                                <Input
+                              
                                     type="file"
                                     inputProps={{
                                     accept: 'image/*'
                                 }}
                                     name="avatar"
                                     onChange={this.handleFileSelected}
-                                    ref={fileInput => this.fileInput = fileInput}/> {$imagePreview}
+                                    /> {$imagePreview}
+
+                                
+                                   <button onClick={this.uploadImage} >Upload Image</button>
                             </div>
                             {this.state.checkValidImage
                                 ? (
@@ -192,7 +197,7 @@ export default class Addproduct extends Component {
                         <FormGroup>
 
                             <Input
-                                type="text"
+                                type="number"
                                 name="productPrice"
                                 className="form-control "
                                 value={this.state.productPrice}
