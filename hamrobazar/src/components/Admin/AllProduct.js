@@ -49,7 +49,7 @@ verifyProduct=event=>{
     var data={isVerified:true}
     Axios.put("http://localhost:3001/admin/product/"+event.target.value,data,this.state.config)
     .then((response)=>{
-            console.log(response)
+            console.log(response.data)
     })
     .catch((err)=>{
         console.log(err)

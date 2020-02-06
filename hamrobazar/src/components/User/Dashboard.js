@@ -20,7 +20,7 @@ export default class Dashboard extends Component {
                 <PrivateRoute path="/dashboard" component={Usernav}/>
                     <Switch>
                        
-                        <PrivateRoute exact path="/dashboard" component={User}/>
+                        <PrivateRoute exact path="/dashboard" component={Myproduct}/>
                         <Route path="/dashboard/product" component={Addproduct}/>
                         <Route path="/dashboard/myproduct" component={Myproduct}/>
                     </Switch>
