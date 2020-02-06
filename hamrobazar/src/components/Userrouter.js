@@ -9,6 +9,7 @@ import Contact from './Contact';
 import Navmenu from './Navmenu'
 import Logout from './Logout';
 import Index from './Index';
+import ViewProduct from './ViewProduct';
 
 
 
@@ -31,7 +32,9 @@ class Userrouter extends Component {
                         <Route exact path="/about" component={About}/>
                         <Route exact path="/contact" component={Contact}/>
                         <Route exact path="/logout" component={Logout}/>
+                        <Route path="/product/:id" component={ViewProduct}/>
                         <Route exact path="/" component={Index}/>
+                        
                     </Switch>
                  
                 </Router>

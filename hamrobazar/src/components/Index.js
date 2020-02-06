@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
-import { Container, Alert,Card,CardBody,CardTitle,CardSubtitle,Row } from 'reactstrap'
+import { Container, Alert,Card,CardBody,CardTitle,CardSubtitle,Row, CardLink, Button } from 'reactstrap'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export default class Index extends Component {
     constructor(props) {
@@ -46,6 +47,8 @@ export default class Index extends Component {
             <CardBody>
                 <CardTitle>{post.productName}</CardTitle>
                 <CardSubtitle>Price: Rs.{post.productPrice}</CardSubtitle>
+<Button color="success"><Link to={`/product/${post._id}`}>View</Link></Button>
+               
                 {/* <CardLink className="btnbtn-primary" value={product._id}
                     onClick={this.handleEdit}>Edit</CardLink>
                 <CardLink className="btn btn-danger">
