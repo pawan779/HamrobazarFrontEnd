@@ -7,6 +7,7 @@ import Myproduct from './Myproduct'
 import Usernav from './Usernav'
 import axios from 'axios'
 import PrivateRoute from '../Utils/PrivateRoute'
+import UpdateProduct from './UpdateProduct'
 
 export default class Dashboard extends Component {
   
@@ -20,9 +21,10 @@ export default class Dashboard extends Component {
                 <PrivateRoute path="/dashboard" component={Usernav}/>
                     <Switch>
                        
-                        <PrivateRoute exact path="/dashboard" component={User}/>
-                        <Route path="/dashboard/product" component={Addproduct}/>
+                        <PrivateRoute exact path="/dashboard" component={Myproduct}/>
+                        <Route exact path="/dashboard/product" component={Addproduct}/>
                         <Route path="/dashboard/myproduct" component={Myproduct}/>
+                        <Route exact path="/dashboard/product/my/:id" component={UpdateProduct}/>
                     </Switch>
                 </Router>
 
