@@ -52,12 +52,12 @@ export default class UpdateProduct extends Component {
       
         var proID = this.props.match.params.id;
         Axios
-            .get("http://localhost:3001/products/my/" +proID, this.state.config)
+            .get("http://192.168.1.21:3001/products/my/" +proID, this.state.config)
             .then((response) => {
                 console.log(response.data)
                 this.setState({
                     product: response.data,
-                    path: 'http://localhost:3001/uploads/',
+                    path: 'http://192.168.1.21:3001/uploads/',
                     productName: response.data.productName,
                     productPrice: response.data.productPrice,
                     productCondition: response.data.productCondition,
@@ -126,7 +126,7 @@ export default class UpdateProduct extends Component {
             const fd = new FormData();
             fd.append('imageFile', this.state.selectedFile,this.state.selectedFile.name);
             Axios
-                .post('http://localhost:3001/upload', fd)
+                .post('http://192.168.1.21:3001/upload', fd)
                 .then(res => {
                     console.log(res);
                     var data = {
@@ -138,7 +138,7 @@ export default class UpdateProduct extends Component {
                         image: 'imageFile-'+this.state.selectedFile.name
                     }
                     Axios
-                        .put('http://localhost:3001/products/'+this.state.ID, data, this.state.config)
+                        .put('http://192.168.1.21:3001/products/'+this.state.ID, data, this.state.config)
                         .then((response) => {
                             console.log(response.data)
                             if (response.status == 200) {

@@ -22,7 +22,7 @@ export default class Navmenu extends Component {
 
     componentWillMount() {
         axios
-            .get('http://localhost:3001/users/me', this.state.config)
+            .get('http://192.168.1.21:3001/users/me', this.state.config)
             .then((response) => {
                 this.setState({user: response.data,loggedIn:true})
             })

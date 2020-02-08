@@ -14,7 +14,11 @@ import {Alert,Container, Card,
     CardTitle,
     CardSubtitle,
     Row,Button,
-    Col,} from 'reactstrap'
+    Col,Toast,ToastHeader,ToastBody} from 'reactstrap'
+import Axios from 'axios'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Myproduct extends Component {
     constructor(props) {
@@ -29,6 +33,8 @@ export default class Myproduct extends Component {
             notLoggedIn: false,
             products: {},
             path: '',
+            proID:'',
+            isDeleted:''
             
         }
     }
@@ -59,6 +65,23 @@ export default class Myproduct extends Component {
             })
     }
 
+    handleDelete=event=>{
+      if(confirm("Are you sure to delete this item ?"))
+      {
+
+        Axios.delete("http://192.168.1.21:3001/products/"+event,this.state.config)
+        .then((response)=>{
+            console.log(response.data)
+        this.setState({isDeleted:"Product deleted sucessfully"})
+        toast("Product deleted sucessfully")
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+      }
+   
+    }
+
     render() {
         if (this.state.notLoggedIn) { < Redirect to = "/login" />
     } else {
@@ -67,6 +90,14 @@ export default class Myproduct extends Component {
         return (
             
               <Container>
+
+                  { this.state.isDeleted ?
+                  (
+                   
+                    <ToastContainer/>
+                
+                  ):null
+                }
                     <Row>
                     {
                         products.length ?
@@ -86,9 +117,13 @@ export default class Myproduct extends Component {
                             </Button>
                             </Link>
                             </CardLink>
-                            <CardLink className="btn btn-danger">
-                            <Link className="text-light" to="/admin/dashboard/myproduct">Delete</Link>
-                        </CardLink>
+                            <CardLink>
+                     
+                            <Button renderAs="button" color="danger" onClick={(id)=>{this.handleDelete(product._id)}}>
+                                Delete
+                            </Button>
+                        
+                            </CardLink>
                     </CardBody>
                     </Card>
                         ))

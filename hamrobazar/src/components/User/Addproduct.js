@@ -12,6 +12,9 @@ import {
 import Axios from 'axios'
 import {Link, Redirect} from 'react-router-dom'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default class Addproduct extends Component {
     constructor(props) {
         super(props)
@@ -88,7 +91,7 @@ export default class Addproduct extends Component {
             const fd = new FormData();
             fd.append('imageFile', this.state.selectedFile,this.state.selectedFile.name);
             Axios
-                .post('http://localhost:3001/upload', fd)
+                .post('http://192.168.1.21:3001/upload', fd)
                 .then((res) => {
                     console.log(res);
                     this.setState({
@@ -116,11 +119,12 @@ handleSubmit=event=>{
             image: this.state.imageIs
         }
         Axios
-            .post('http://localhost:3001/products',data,this.state.config)
+            .post('http://192.168.1.21:3001/products',data,this.state.config)
             .then((response) => {
                 console.log(response.data)
                 if (response.status == 200) {
                     this.setState({redirect: true})
+                    toast("Sucessfully")
                 }
 
             })
