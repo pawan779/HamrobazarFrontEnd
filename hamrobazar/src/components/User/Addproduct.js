@@ -15,6 +15,7 @@ import {Link, Redirect} from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Usernav from './Usernav';
+import SideNavPage from './SideNavPage';
 
 export default class Addproduct extends Component {
     constructor(props) {
@@ -153,6 +154,7 @@ handleSubmit=event=>{
         }
         return (
 <div>
+    <SideNavPage/>
     <Usernav/>
             <Container>
                 <Col md="6" className="register ">

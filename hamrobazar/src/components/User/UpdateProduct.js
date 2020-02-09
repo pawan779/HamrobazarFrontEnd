@@ -14,6 +14,7 @@ import {
 import { Redirect } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Usernav from './Usernav';
+import SideNavPage from './SideNavPage';
 
 export default class UpdateProduct extends Component {
     constructor(props) {
@@ -187,6 +188,7 @@ export default class UpdateProduct extends Component {
     
         return (
             <div>
+                <SideNavPage/>
                 <Usernav/>
             <Container>
                 <Row>

@@ -3,6 +3,7 @@ import Axios from 'axios'
 import {Form, Container, Alert} from 'reactstrap'
 import Dashboard from './Dashboard'
 import Usernav from './Usernav'
+import SideNavPage from './SideNavPage'
 
 export default class User extends Component {
     constructor(props) {
@@ -38,7 +39,9 @@ export default class User extends Component {
 
         return (
             <div>
+                   <SideNavPage/>
                 <Usernav/>
+             
                 <Container>
 
                     <div>

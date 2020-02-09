@@ -19,6 +19,9 @@ import User from './components/User/User';
 import Addproduct from './components/User/Addproduct';
 import Myproduct from './components/User/Myproduct';
 import UpdateProduct from './components/User/UpdateProduct';
+import SideNavPage from './components/User/SideNavPage';
+
+
 
 class App extends Component {
     render() {
