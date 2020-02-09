@@ -12,6 +12,8 @@ import {
     Alert
 } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
+import Dashboard from './Dashboard';
+import Usernav from './Usernav';
 
 export default class UpdateProduct extends Component {
     constructor(props) {
@@ -184,6 +186,8 @@ export default class UpdateProduct extends Component {
         }
     
         return (
+            <div>
+                <Usernav/>
             <Container>
                 <Row>
                     <Form onSubmit={this.handleSubmit}>
@@ -294,6 +298,7 @@ export default class UpdateProduct extends Component {
                     </Form>
                 </Row>
             </Container>
+            </div>
         )
     }
 }

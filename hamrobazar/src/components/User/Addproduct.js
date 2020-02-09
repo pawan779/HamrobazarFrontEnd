@@ -14,6 +14,7 @@ import {Link, Redirect} from 'react-router-dom'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Usernav from './Usernav';
 
 export default class Addproduct extends Component {
     constructor(props) {
@@ -151,7 +152,8 @@ handleSubmit=event=>{
             );
         }
         return (
-
+<div>
+    <Usernav/>
             <Container>
                 <Col md="6" className="register ">
                     <h1 className="m-2 text-center">Add product</h1>
@@ -261,6 +263,7 @@ handleSubmit=event=>{
                     </Form>
                 </Col>
             </Container>
+            </div>
         )
     }
 }

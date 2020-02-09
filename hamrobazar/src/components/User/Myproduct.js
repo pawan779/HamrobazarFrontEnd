@@ -19,6 +19,7 @@ import Axios from 'axios'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from './Dashboard'
 
 export default class Myproduct extends Component {
     constructor(props) {
@@ -88,7 +89,8 @@ export default class Myproduct extends Component {
 
         const {products} = this.state
         return (
-            
+            <div>
+                <Usernav/>
               <Container>
 
                   { this.state.isDeleted ?
@@ -131,6 +133,7 @@ export default class Myproduct extends Component {
 }
 </Row>            
 </Container>
+</div>
         )
     }
 }

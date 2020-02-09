@@ -33,9 +33,22 @@ class Register extends Component {
             passwordError: '',
             selectedFile: '',
             checkValidImage: '',
-            redirect: false
+            loggedIn: false,
+            config: {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            },
+            redirect:false
         }
     }
+componentWillMount(){
+    if(localStorage.getItem('token'))
+    {
+        this.setState({redirect:true})
+    }
+}
+
     handleChange = event => (this.setState({
         [event.target.name]: event.target.value
     }))
@@ -128,7 +141,7 @@ class Register extends Component {
                         .then((response) => {
                             console.log(response)
                             if (response.status == 200) {
-                                this.setState({redirect: true})
+                                this.setState({loggedIn: true})
                             }
 
                         })
@@ -147,7 +160,12 @@ class Register extends Component {
     }
     render()
     {
-        if (this.state.redirect) {
+if(this.state.redirect)
+{
+    return(<Redirect to="/"/>)
+}
+
+        if (this.state.loggedIn) {
             return (<Redirect to="/login"/>)
         }
 

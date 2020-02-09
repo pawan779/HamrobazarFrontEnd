@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Search from './home/Search'
 import ImageSlider from './home/ImageSlider'
 import Footer from './home/Footer'
+import Navmenu from './Navmenu'
 
 export default class Index extends Component {
     constructor(props) {
@@ -38,8 +39,8 @@ export default class Index extends Component {
           //this.state.posts
           const{posts}=this.state
         return (
-         
-
+         <div>
+<Navmenu/>
            <Container fluid={true}>
                <ImageSlider/>
                <Search/>
@@ -70,6 +71,7 @@ export default class Index extends Component {
 </Container>
 <Footer/>
 </Container>
+</div>
         )
     }
 }

@@ -12,6 +12,13 @@ import UserNav from './components/User/Usernav';
 import Dashboard from './components/User/Dashboard';
 import Userrouter from './components/Userrouter';
 import Admindashboard from './components/Admin/Admindashboard';
+import Logout from './components/Logout';
+import ViewProduct from './components/ViewProduct';
+import PrivateRoute from './components/Utils/PrivateRoute';
+import User from './components/User/User';
+import Addproduct from './components/User/Addproduct';
+import Myproduct from './components/User/Myproduct';
+import UpdateProduct from './components/User/UpdateProduct';
 
 class App extends Component {
     render() {
@@ -19,23 +26,19 @@ class App extends Component {
             <div className="App">
 
                 <Router>
-             
-              
-                   
-                
-                {/* <Navmenu/> */}
-                   
-                    <Switch>
-                    <Route exact path="/" component={Userrouter}/>
-                    <Route exact path="/dashboard" component={Dashboard}/>
-                    <Route exact path="/admin/dashboard" component={Admindashboard}/>
-                      
-                        {/* <Route exact path="/login" component={Login}/>
-                        <Route exact path="/register" component={Register}/>
-                        <Route exact path="/about" component={About}/>
-                        <Route exact path="/contact" component={Contact}/> */}
-                    </Switch>
-                 
+                    <Route exact path="/"><Index/></Route>
+                    <Route path="/about" component={About}/>
+                    <Route path="/contact" component={Contact}/>
+                    <Route exact path="/logout" component={Logout}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/product/:id" component={ViewProduct}/>
+                    <Route path="/register" component={Register}/>
+
+                    <PrivateRoute exact path="/dashboard" component={User}/>
+                    <PrivateRoute exact path="/dashboard/myproduct" component={Myproduct}/>
+                    <PrivateRoute exact path="/dashboard/product" component={Addproduct}/>
+                    <PrivateRoute exact path="/dashboard/product/my/:id" component={UpdateProduct}/>
+
                 </Router>
 
             </div>
