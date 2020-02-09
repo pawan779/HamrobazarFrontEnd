@@ -12,6 +12,7 @@ import {
 } from 'reactstrap'
 import {Link, Redirect} from 'react-router-dom'
 import axios from 'axios'
+import {toast,ToastContainer} from 'react-toastify';
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -21,10 +22,25 @@ export default class Login extends Component {
             password: '',
             isLoggedIn: false,
             checkError: '',
-            isAdmin: ''
+            isAdmin: '',
+            config: {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            },
+            redirect:false
+
 
         }
     }
+
+componentDidMount(){
+    if(localStorage.getItem('token'))
+    {
+        this.setState({redirect:true})
+    }
+}
+
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -54,17 +70,33 @@ export default class Login extends Component {
 
     }
     render() {
+
+     
+
         if (this.state.isAdmin === true) {
-            return <Redirect to="/admin/dashboard"/>
+            return (<Redirect to="/admin/dashboard"/>)
         }
         if 
             (this.state.isAdmin === false)
             {
-                return <Redirect to="/dashboard"/>
+                return (<Redirect to="/dashboard"/>)
+        }
+           if(this.state.redirect === true)
+        {
+            if(localStorage.getItem('user'))
+            {
+                return(<Redirect to="/dashboard"/>)
+            }
+            else
+            {
+                return(<Redirect to="/admin/dashboard"/>) 
+            }
+          
         }
 
         return (
             <Container >
+                <ToastContainer/>
                 <Col md={6} className="login">
                     <h3 className="text-center m-2">Login Form</h3>
 

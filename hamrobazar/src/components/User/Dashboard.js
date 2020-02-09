@@ -18,13 +18,15 @@ export default class Dashboard extends Component {
         return (
             <div>
                 <Router>
-                <PrivateRoute path="/dashboard" component={Usernav}/>
+               <Usernav/>
                     <Switch>
                        
-                        <PrivateRoute exact path="/dashboard" component={Myproduct}/>
+                    <PrivateRoute exact path="/dashboard" component={Addproduct}></PrivateRoute>
+                    <PrivateRoute exact path="/dashboard/myproduct" component={Myproduct}></PrivateRoute>
+                        {/* <PrivateRoute exact path="/dashboard" component={Myproduct}/>
                         <Route exact path="/dashboard/product" component={Addproduct}/>
                         <Route path="/dashboard/myproduct" component={Myproduct}/>
-                        <Route exact path="/dashboard/product/my/:id" component={UpdateProduct}/>
+                        <Route exact path="/dashboard/product/my/:id" component={UpdateProduct}/> */}
                     </Switch>
                 </Router>
 

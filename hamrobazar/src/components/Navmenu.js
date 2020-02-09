@@ -39,11 +39,11 @@ export default class Navmenu extends Component {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
+                        <Nav className="mr-auto navbar-list">
 
-                            <Nav.Link className="text-light" as={Link} to="/">Home</Nav.Link>
-                            <Nav.Link className="text-light" as={Link} to="/about">About</Nav.Link>
-                            <Nav.Link className="text-light" as={Link} to="/contact">Contact</Nav.Link>
+                            <Nav.Link className="text-light" activeClassName='active' as={Link} to="/">Home</Nav.Link>
+                            <Nav.Link className="text-light" activeClassName='active' as={Link} to="/about">About</Nav.Link>
+                            <Nav.Link className="text-light" activeClassName='active' as={Link} to="/contact">Contact</Nav.Link>
 
                         </Nav>
                         {this.state.loggedIn

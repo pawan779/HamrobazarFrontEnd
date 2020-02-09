@@ -10,6 +10,7 @@ import Navmenu from './Navmenu'
 import Logout from './Logout';
 import Index from './Index';
 import ViewProduct from './ViewProduct';
+import Usernav from './User/Usernav';
 
 
 
@@ -19,21 +20,17 @@ class Userrouter extends Component {
 
                 <Router>
              
-              
-                   
-                {/* <Route exact path="/dashboard" component={Dashboard}/> */}
-                <Navmenu/>
-                   
+            
+                   <Navmenu/>
                     <Switch>
-                       
-                   
+                    <Route exact path="/" component={Index}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/register" component={Register}/>
-                        <Route exact path="/about" component={About}/>
+                        <Route path="/about" component={About}/>
                         <Route exact path="/contact" component={Contact}/>
                         <Route exact path="/logout" component={Logout}/>
                         <Route path="/product/:id" component={ViewProduct}/>
-                        <Route exact path="/" component={Index}/>
+                        
                         
                     </Switch>
                  

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container } from 'reactstrap'
 import { Redirect } from 'react-router-dom'
+import Navmenu from './Navmenu'
 
 class Contact extends Component {
     constructor(props) {
@@ -42,6 +43,8 @@ class Contact extends Component {
                 <Redirect to="/login"/>
             } 
         return (
+            <div>
+                <Navmenu/>
            <Container>
                 
                 <h1>Contact Us</h1>
@@ -57,6 +60,7 @@ class Contact extends Component {
                 Iure repellat corrupti, cumque blanditiis in qui eaque aliquam natus fuga suscipit quos rem vel voluptate quaerat quia dolores, laborum facere expedita, adipisci illo iste? Provident eligendi nam minima magnam!
                 Adipisci magnam fugiat officia odio saepe suscipit ut quasi deserunt iste, itaque ab et eum assumenda excepturi ducimus ipsum doloremque quis! Ab, consequuntur illo? Iusto delectus voluptatem nulla facilis tempore!</span>
                 </Container>
+                </div>
         )
     }
 }

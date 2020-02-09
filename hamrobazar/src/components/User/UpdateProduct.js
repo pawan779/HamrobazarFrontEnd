@@ -11,7 +11,11 @@ import {
     FormGroup,
     Alert
 } from 'reactstrap';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
+import Dashboard from './Dashboard';
+import Usernav from './Usernav';
+import SideNavPage from './SideNavPage';
+import {toast} from 'react-toastify';
 
 export default class UpdateProduct extends Component {
     constructor(props) {
@@ -38,7 +42,8 @@ export default class UpdateProduct extends Component {
             selectedFile: '',
             checkValidImage: '',
             redirect: false,
-            ID:''
+            ID: '',
+            imageIS:''
         }
     }
 
@@ -49,10 +54,10 @@ export default class UpdateProduct extends Component {
     }
 
     componentWillMount() {
-      
+
         var proID = this.props.match.params.id;
         Axios
-            .get("http://192.168.1.21:3001/products/my/" +proID, this.state.config)
+            .get("http://192.168.1.21:3001/products/my/" + proID, this.state.config)
             .then((response) => {
                 console.log(response.data)
                 this.setState({
@@ -64,7 +69,7 @@ export default class UpdateProduct extends Component {
                     image: response.data.image,
                     productDescription: response.data.productDescription,
                     category: response.data.category,
-                    ID:response.data._id
+                    ID: response.data._id
                 })
             })
 
@@ -104,8 +109,6 @@ export default class UpdateProduct extends Component {
         if (!this.state.productCondition) {
             productConditionError = "Product Condition cannot be empty"
         }
-       
-       
 
         if (productNameError || productPriceError || productDescriptionError || productConditionError || categoryError) {
             this.setState({productNameError, productPriceError, productDescriptionError, productConditionError, categoryError})
@@ -114,48 +117,58 @@ export default class UpdateProduct extends Component {
         return true;
     }
 
+
+    uploadImage = event => {
+        event.preventDefault();
+        const fd = new FormData();
+        fd.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
+        Axios
+            .post('http://192.168.1.21:3001/upload', fd)
+            .then((res) => {
+                console.log(res);
+                this.setState({imageIS: res.data.filename});
+                toast("Image sucessfully updated!!");
+
+            })
+            .catch((err) => {
+                console.log(err)
+                this.setState({checkValidImage: "Image is not valid"})
+                return;
+            })
+
+    }
+
+
+
     handleSubmit = event => {
         event.preventDefault();
         const isValid = this.validate();
         if (isValid) {
 
-            var headers = {
-                'Content-Type': 'application/json'
-            }
 
-            const fd = new FormData();
-            fd.append('imageFile', this.state.selectedFile,this.state.selectedFile.name);
-            Axios
-                .post('http://192.168.1.21:3001/upload', fd)
-                .then(res => {
-                    console.log(res);
                     var data = {
                         productName: this.state.productName,
                         productPrice: this.state.productPrice,
                         productDescription: this.state.productDescription,
                         productCondition: this.state.productCondition,
                         category: this.state.category,
-                        image: 'imageFile-'+this.state.selectedFile.name
+                        image: this.state.imageIS
                     }
                     Axios
-                        .put('http://192.168.1.21:3001/products/'+this.state.ID, data, this.state.config)
+                        .put('http://192.168.1.21:3001/products/' + this.state.ID, data, this.state.config)
                         .then((response) => {
                             console.log(response.data)
                             if (response.status == 200) {
                                 this.setState({redirect: true})
                             }
+                            toast("Product Updated!!")
 
                         })
                         .catch((err) => {
                             console.log(err)
                             this.setState({checkValidImage: "Unsucessfull"})
+                            toast("Product couldnot be updated")
                         })
-
-                })
-                .catch((err) => {
-                    console.log(err)
-                    this.setState({checkValidImage: "Image is not valid"})
-                })
 
         }
 
@@ -163,7 +176,7 @@ export default class UpdateProduct extends Component {
 
     render() {
         if (this.state.redirect) {
-            return (<Redirect to="/dashboard"/>)
+            return (<Redirect to="/dashboard/myproduct"/>)
         }
         const {product} = this.state
 
@@ -173,127 +186,143 @@ export default class UpdateProduct extends Component {
         );
         if (this.state.imagePreviewUrl) {
             $imagePreview = (
-                <div className="image-container text-center"><img src={this.state.imagePreviewUrl} alt="icon" width="200" height="200"/>
-                </div>
+                <label htmlFor="previewImage" className="image-container text-center"><img src={this.state.imagePreviewUrl} alt="icon" width="200" height="200"/>
+                </label>
             );
         } else {
             $imagePreview = (
-                <div className="image-container text-center"><img src={this.state.path + product.image} alt="icon" width="200" height="200"/>
-                </div>
+                <label htmlFor="previewImage" className="image-container text-center"><img src={this.state.path + product.image} alt="icon" width="200" height="200"/>
+                </label>
             );
         }
-    
+
         return (
-            <Container>
-                <Row>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Col md="6">
+            <div>
+                <SideNavPage/>
+                <Usernav/>
+                <div className="product ">
 
-                            <FormGroup>
+                    <Container>
 
-                                <div>
-                                    <input
-                                        type="file"
-                                        inputProps={{
-                                        accept: 'image/*'
-                                    }}
-                                        name="avatar"
-                                        onChange={this.handleFileSelected}
-                                        ref={fileInput => this.fileInput = fileInput}/> {$imagePreview}
-                                </div>
-                                {this.state.checkValidImage
-                                    ? (
-                                        <Alert>{this.state.checkValidImage}</Alert>
-                                    )
-                                    : null
+                        <Form onSubmit={this.handleSubmit}>
+                            <Row>
+                                <Col md="4" sm="6">
+
+                                    <FormGroup>
+
+                                        <div>
+                                            <input
+                                              style={{
+                                                display: 'none'
+                                            }}
+                                                type="file"
+                                                inputProps={{
+                                                accept: 'image/*'
+                                            }}
+                                            id="previewImage"
+                                                name="avatar"
+                                                onChange={this.handleFileSelected}
+                                                ref={fileInput => this.fileInput = fileInput}/> {$imagePreview}
+                                        </div>
+                                        <div className="text-center mt-2">
+                                            <Button onClick={this.uploadImage} color="dark">Upload Image</Button>
+                                        </div>
+                                        {this.state.checkValidImage
+                                            ? (
+                                                <Alert>{this.state.checkValidImage}</Alert>
+                                            )
+                                            : null
 }
-                            </FormGroup>
-                        </Col>
-                        <Col md="6">
-                            <h1 className="m-2 text-center">Add product</h1>
+                                    </FormGroup>
+                                </Col>
+                                <Col md="8" sm="6">
+                                    <h1 className="m-2 text-center">Update product</h1>
 
-                            <FormGroup>
-                                {/*
+                                    <FormGroup>
+                                        {/*
                         <Input type="file" className="form-control" onChange={this.handleFileSelected}/> */}
 
-                                <Input
-                                    type="text"
-                                    name="productName"
-                                    className="form-control"
-                                    value={this.state.productName}
-                                    onChange={this.handleChange}placeholder="Product Name"/> {this.state.productNameError
-                                    ? (
-                                        <Alert color="danger" size="sm" className="mt-2">
-                                            {this.state.productNameError}</Alert>
-                                    )
-                                    : null}
+                                        <Input
+                                            type="text"
+                                            name="productName"
+                                            className="form-control"
+                                            value={this.state.productName}
+                                            onChange={this.handleChange}placeholder="Product Name"/> {this.state.productNameError
+                                            ? (
+                                                <Alert color="danger" size="sm" className="mt-2">
+                                                    {this.state.productNameError}</Alert>
+                                            )
+                                            : null}
 
-                            </FormGroup>
-                            <FormGroup>
+                                    </FormGroup>
+                                    <FormGroup>
 
-                                <Input
-                                    type="number"
-                                    name="productPrice"
-                                    className="form-control "
-                                    value={this.state.productPrice}
-                                    onChange={this.handleChange}placeholder="Product price"/> {this.state.productPriceError
-                                    ? (
-                                        <Alert color="danger" size="sm" className="mt-2">
-                                            {this.state.productPriceError}</Alert>
-                                    )
-                                    : null}
-                            </FormGroup>
-                            <FormGroup>
+                                        <Input
+                                            type="number"
+                                            name="productPrice"
+                                            className="form-control "
+                                            value={this.state.productPrice}
+                                            onChange={this.handleChange}placeholder="Product price"/> {this.state.productPriceError
+                                            ? (
+                                                <Alert color="danger" size="sm" className="mt-2">
+                                                    {this.state.productPriceError}</Alert>
+                                            )
+                                            : null}
+                                    </FormGroup>
+                                    <FormGroup>
 
-                                <Input
-                                    type="text"
-                                    name="productDescription"
-                                    className="form-control "
-                                    value={this.state.productDescription}
-                                    onChange={this.handleChange}placeholder="Product Description"/> {this.state.productDescriptionError
-                                    ? (
-                                        <Alert color="danger" size="sm" className="mt-2">
-                                            {this.state.productDescriptionError}</Alert>
-                                    )
-                                    : null}
-                            </FormGroup>
+                                        <Input
+                                            type="text"
+                                            name="productDescription"
+                                            className="form-control "
+                                            value={this.state.productDescription}
+                                            onChange={this.handleChange}placeholder="Product Description"/> {this.state.productDescriptionError
+                                            ? (
+                                                <Alert color="danger" size="sm" className="mt-2">
+                                                    {this.state.productDescriptionError}</Alert>
+                                            )
+                                            : null}
+                                    </FormGroup>
 
-                            <FormGroup>
+                                    <FormGroup>
 
-                                <Input
-                                    type="text"
-                                    name="productCondition"
-                                    className="form-control "
-                                    value={this.state.productCondition}
-                                    onChange={this.handleChange}placeholder="Product Condition"/> {this.state.productConditionError
-                                    ? (
-                                        <Alert color="danger" size="sm" className="mt-2">
-                                            {this.state.productConditionError}</Alert>
-                                    )
-                                    : null}
-                            </FormGroup>
+                                        <Input
+                                            type="text"
+                                            name="productCondition"
+                                            className="form-control "
+                                            value={this.state.productCondition}
+                                            onChange={this.handleChange}placeholder="Product Condition"/> {this.state.productConditionError
+                                            ? (
+                                                <Alert color="danger" size="sm" className="mt-2">
+                                                    {this.state.productConditionError}</Alert>
+                                            )
+                                            : null}
+                                    </FormGroup>
 
-                            <FormGroup>
+                                    <FormGroup>
 
-                                <Input
-                                    type="text"
-                                    name="category"
-                                    className="form-control "
-                                    value={this.state.category}
-                                    onChange={this.handleChange}placeholder="Category"/> {this.state.categoryError
-                                    ? (
-                                        <Alert color="danger" size="sm" className="mt-2">
-                                            {this.state.categoryError}</Alert>
-                                    )
-                                    : null}
-                            </FormGroup>
+                                        <Input
+                                            type="text"
+                                            name="category"
+                                            className="form-control "
+                                            value={this.state.category}
+                                            onChange={this.handleChange}placeholder="Category"/> {this.state.categoryError
+                                            ? (
+                                                <Alert color="danger" size="sm" className="mt-2">
+                                                    {this.state.categoryError}</Alert>
+                                            )
+                                            : null}
+                                    </FormGroup>
 
-                            <Button varient="primary" type="submit">Submit</Button>
-                        
-                    </Col>
-                    </Form>
-                </Row>
-            </Container>
+                                    <Button color="primary" type="Update">Submit</Button>
+
+                                </Col>
+                            </Row>
+                        </Form>
+
+                    </Container>
+                </div>
+            </div>
         )
     }
 }
