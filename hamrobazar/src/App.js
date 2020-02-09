@@ -39,10 +39,11 @@ class App extends Component {
                     <Route path="/register" component={Register}/>
 
                     <PrivateRoute exact path="/dashboard" component={User}/>
+                    <PrivateRoute exact path="/dashboard/users" component={UpdateUser}/>
                     <PrivateRoute exact path="/dashboard/myproduct" component={Myproduct}/>
                     <PrivateRoute exact path="/dashboard/product" component={Addproduct}/>
                     <PrivateRoute exact path="/dashboard/product/my/:id" component={UpdateProduct}/>
-                    <PrivateRoute exact path="/dashboard/users/:id" component={UpdateUser}/>
+                 
 
                 </Router>
 

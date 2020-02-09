@@ -229,7 +229,7 @@ if(this.state.redirect)
                                 type="text"
                                 name="address1"
                                 className="form-control "
-                                value={this.state.address}
+                                value={this.state.address1}
                                 onChange={this.handleChange}placeholder="Address"/> {this.state.address1Error
                                 ? (
                                     <Alert color="danger" size="sm" className="mt-2">

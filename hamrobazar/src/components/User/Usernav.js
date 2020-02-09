@@ -6,6 +6,8 @@ import {
 } from "react-bootstrap";
     import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default class Usernav extends Component {
     render() {
         
@@ -27,6 +29,7 @@ export default class Usernav extends Component {
 
                 </Navbar.Collapse>
             </Navbar>
+            <ToastContainer/>
         </div>
         )
     }

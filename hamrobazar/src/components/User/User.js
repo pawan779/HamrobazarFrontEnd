@@ -71,14 +71,14 @@ export default class User extends Component {
                                 <CardHeader>Email Address: {users.email}</CardHeader>
                                 <CardBody className="text-center">
                                     <CardLink>
-                                        <Link to={`/dashboard/users/${users._id}`}>
+                                        <Link to="/dashboard/users">
                                             <Button renderAs="button" color="warning">
                                                 Update Profile
                                             </Button>
                                         </Link>
                                     </CardLink>
                                     <CardLink>
-                                        <Link to={`/dashboard/product/my/`}>
+                                        <Link to="/dashboard/users/">
                                             <Button renderAs="button" color="secondary">
                                                 Update Password
                                             </Button>
