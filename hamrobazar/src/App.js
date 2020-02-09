@@ -20,6 +20,7 @@ import Addproduct from './components/User/Addproduct';
 import Myproduct from './components/User/Myproduct';
 import UpdateProduct from './components/User/UpdateProduct';
 import SideNavPage from './components/User/SideNavPage';
+import UpdateUser from './components/User/UpdateUser';
 
 
 
@@ -41,6 +42,7 @@ class App extends Component {
                     <PrivateRoute exact path="/dashboard/myproduct" component={Myproduct}/>
                     <PrivateRoute exact path="/dashboard/product" component={Addproduct}/>
                     <PrivateRoute exact path="/dashboard/product/my/:id" component={UpdateProduct}/>
+                    <PrivateRoute exact path="/dashboard/users/:id" component={UpdateUser}/>
 
                 </Router>
 
