@@ -180,7 +180,7 @@ class Register extends Component {
 
         // for image preview
         let $imagePreview = (
-            <label htmlFor="previewImage" className="previewText image-container">Please select an Image for Preview</label>
+            <label htmlFor="previewImage" className="previewText image-container"></label>
         );
         if (this.state.imagePreviewUrl) {
             $imagePreview = (

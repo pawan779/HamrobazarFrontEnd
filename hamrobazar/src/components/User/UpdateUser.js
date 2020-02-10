@@ -171,7 +171,7 @@ export default class UpdateUser extends Component {
 
         // for image preview
         let $imagePreview = (
-            <div className="previewText image-container">Please select an Image for Preview</div>
+            <label htmlFor="previewImage" className="previewText image-container"></label>
         );
         if (this.state.imagePreviewUrl) {
             $imagePreview = (

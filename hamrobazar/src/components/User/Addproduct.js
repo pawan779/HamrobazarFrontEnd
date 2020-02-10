@@ -97,9 +97,6 @@ export default class Addproduct extends Component {
         if (this.state.productPrice.includes("-")) {
             productPriceError = "Invalid price"
         }
-        if (this.state.category = "Select Category") {
-            categoryError = "Select Category"
-        }
         if (productNameError || productPriceError || productDescriptionError || productConditionError || categoryError) {
             this.setState({productNameError, productPriceError, productDescriptionError, productConditionError, categoryError})
             return false;
@@ -116,6 +113,7 @@ export default class Addproduct extends Component {
             .then((res) => {
                 console.log(res);
                 this.setState({imageIs: res.data.filename});
+                toast("Image Uploaded!!")
             })
             .catch((err) => {
                 console.log(err)
@@ -151,6 +149,7 @@ export default class Addproduct extends Component {
                 .catch((err) => {
                     console.log(err)
                     this.setState({checkValidImage: "Unsucessfull"})
+                    return;
                 })
         }
     }
@@ -163,7 +162,7 @@ export default class Addproduct extends Component {
 
         // for image preview
         let $imagePreview = (
-            <label htmlFor="previewImage" className="previewText image-container">Click on the image for preview</label>
+            <label htmlFor="previewImage" className="previewText image-container"></label>
         );
         if (this.state.imagePreviewUrl) {
             $imagePreview = (
@@ -257,14 +256,13 @@ export default class Addproduct extends Component {
                                     </FormGroup>
 
                                     <FormGroup>
-
+                                                <label htmlFor="category">Select Category</label>
                                         <select
                                             name="category"
+                                            id="category"
                                             value={this.state.category}
                                             className="form-control"
                                             onChange={this.handleChange}>
-                                            <option>Select Category</option>
-
                                             {cat.length
                                                 ? (cat.map(cats => {
                                                     return (

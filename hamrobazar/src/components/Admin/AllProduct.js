@@ -12,9 +12,13 @@ import {
     Row,
     Col,
     Table,
-    Button
+    Button,
+    Input
 } from 'reactstrap'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
+import SideNavPage from './SideNavPage'
+import Adminnav from './Adminnav'
+import { toast } from 'react-toastify'
 
 export default class AllProduct extends Component {
     constructor(props) {
@@ -28,7 +32,9 @@ export default class AllProduct extends Component {
             },
             products: {},
             path: '',
-            productID:''
+            productID:'',
+            userID:'',
+            redirect:false
         }
     }
 
@@ -43,24 +49,17 @@ export default class AllProduct extends Component {
             })
 
     }
-    
-verifyProduct=event=>{
 
-    var data={isVerified:true}
-    Axios.put("http://localhost:3001/admin/product/"+event.target.value,data,this.state.config)
-    .then((response)=>{
-            console.log(response.data)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-      
-}
 
     render() {
 
+    
+
         const {products} = this.state
         return (
+            <div>
+                <SideNavPage/>
+                <Adminnav/>
             <Container>
     <Table className="table-responsive">
                             <thead>
@@ -69,15 +68,15 @@ verifyProduct=event=>{
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Price</th>
-                                    <th>Condition</th>
-                                    <th>User</th>
-                                    <th>Description</th>
+                                  
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                     {products.length
                         ? (products.map(product =><tbody key = {
                             product._id
+                           
                         } > 
                     
                                 <tr>
@@ -85,34 +84,43 @@ verifyProduct=event=>{
                                     <td>{product.productName}</td>
                                     <td><img src={this.state.path + product.image}width="30%"/></td>
                                     <td>{product.productPrice}</td>
-                                    <td>{product.productCondition}</td>
-                                    <td>{this.state.name}</td>
-                                     <td>{product.productDescription}</td>
+                                     <td> {
+                                            product.isVerified===true ?
+                                            (<label color="success">Verified</label> )
+                                            :(<label color="warning" value={product._id} onClick={this.verifyProduct}>Verfy this</label>)
+                                        }</td>
                                     <td>
 
-                                        {
-                                            product.isVerified===true ?
-                                            (<Button color="success">Verified</Button> )
-                                            :null
-                                        }
-                                  
-                                  <Button color="warning" value={product._id} onClick={this.verifyProduct}>Verfy this</Button>
+                                   
+                        <Link to={`/admin/product/verifyproduct/${product._id}`}>
+                            <Button renderAs="button" color="warning">
+                                View Details
+                            </Button>
+                            </Link>
+                       
 
                                     </td>
                                     </tr>
+   
 
                               
                          
 
                         </tbody>
-                        ))
+                        
+                        )
+                        
+                        )
+                        
+                
                         :null
-                }
-              
 
-            }
+                          
+                }
+                
             </Table>
             </Container>
+            </div>
         )
     }
 }

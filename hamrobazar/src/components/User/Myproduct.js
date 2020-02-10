@@ -14,7 +14,7 @@ import {Alert,Container, Card,
     CardTitle,
     CardSubtitle,
     Row,Button,
-    Col,Toast,ToastHeader,ToastBody} from 'reactstrap'
+    Col,Toast,ToastHeader,ToastBody, CardHeader} from 'reactstrap'
 import Axios from 'axios'
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -105,13 +105,13 @@ export default class Myproduct extends Component {
                     <Row>
                     {
                         products.length ?
-                        (products.map(product=><Card className="col-md-6" key={product._id}>
-                       <CardBody>
-                        <img width="20%" src={this.state.path + product.image} alt="Card image"/>
+                        (products.map(product=><CardTitle className="col-md-4 col-sm-6" key={product._id}>
+                       <CardBody className="cardImage">
+                        <img src={this.state.path + product.image} alt="Card image"/>
                         </CardBody>
                     <CardBody>
                         <CardTitle>{product.productName}</CardTitle>
-                        <CardSubtitle>{product.productCondition}</CardSubtitle>
+                        <CardTitle>{product.productCondition}</CardTitle>
                         <CardSubtitle>Price: Rs.{product.productPrice}</CardSubtitle>
                         <CardText>{product.productDescription}</CardText>
                         <CardLink>
@@ -129,7 +129,7 @@ export default class Myproduct extends Component {
                         
                             </CardLink>
                     </CardBody>
-                    </Card>
+                    </CardTitle>
                         ))
 :(<Alert color="warning">No product found</Alert>)
 }

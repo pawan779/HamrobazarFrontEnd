@@ -21,6 +21,9 @@ import Myproduct from './components/User/Myproduct';
 import UpdateProduct from './components/User/UpdateProduct';
 import SideNavPage from './components/User/SideNavPage';
 import UpdateUser from './components/User/UpdateUser';
+import AdminRoute from './components/Utils/AdminRoute';
+import AllProduct from './components/Admin/AllProduct';
+import VerifyProduct from './components/Admin/VerifyProduct';
 
 
 
@@ -44,6 +47,10 @@ class App extends Component {
                     <PrivateRoute exact path="/dashboard/product" component={Addproduct}/>
                     <PrivateRoute exact path="/dashboard/product/my/:id" component={UpdateProduct}/>
                  
+                    <AdminRoute exact path="/admin/dashboard" component={Admindashboard}/>
+                      <AdminRoute exact path="/admin/dashboard/product" component={AllProduct}/>
+                      <AdminRoute exact path="/admin/product/verifyproduct/:id" component={VerifyProduct}/>
+                      
 
                 </Router>
 

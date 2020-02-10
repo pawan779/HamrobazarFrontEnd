@@ -26,6 +26,10 @@
 {
   background-color: #c40404 !important;
 }
+#adminNavbar
+{
+  background-color: rgb(226, 92, 3) !important;
+}
 
 .navbar-list a.active,
 .navbar-list a:hover
@@ -53,6 +57,13 @@
   width: 200px;
   height: 200px;
 }
+.imageResponsive .user-image
+{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
 .Container
 {
   margin-top: 20px;
@@ -86,6 +97,11 @@
  .imageResponsive{
    width: 60%;
  }
+ .imageResponsive .user-image
+{
+
+  height: 200px;
+}
 }
 
 
@@ -189,4 +205,15 @@
   background-color: #d8d8d80e;
   padding: 20px;
   width: 100%;
+}
+
+.cardImage
+{
+  width: 100%;
+  height: 200px;
+}
+.cardImage img
+{
+  width: 100%;
+  height: 200px;
 }

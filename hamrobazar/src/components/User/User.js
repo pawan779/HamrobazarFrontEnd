@@ -60,7 +60,7 @@ export default class User extends Component {
                     <Row>
                         <CardHeader className="col-md-6 mx-auto">
                             <div className="imageResponsive mx-auto">
-                                <CardImg src={this.state.path + users.image}/>
+                                <CardImg src={this.state.path + users.image} className="user-image"/>
                             </div>
 
                             <CardBody>

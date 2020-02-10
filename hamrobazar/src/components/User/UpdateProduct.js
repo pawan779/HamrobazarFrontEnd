@@ -182,7 +182,7 @@ export default class UpdateProduct extends Component {
 
         // for image preview
         let $imagePreview = (
-            <div className="previewText image-container">Please select an Image for Preview</div>
+            <div className="previewText image-container"></div>
         );
         if (this.state.imagePreviewUrl) {
             $imagePreview = (

@@ -6,14 +6,17 @@ import {
 } from "react-bootstrap";
     import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default class Adminnav extends Component {
     render() {
         
         return (
             <div>
-            <Navbar bg="light" id="Navbar" expand="sm">
+            <Navbar bg="light" id="adminNavbar" expand="sm">
                 <Navbar.Brand>
-                    <Nav.Link as={Link} to="/" className="text-dark">Hamrobazar</Nav.Link>
+                    <Nav.Link></Nav.Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -27,6 +30,8 @@ export default class Adminnav extends Component {
 
                 </Navbar.Collapse>
             </Navbar>
+
+            <ToastContainer/>
         </div>
         )
     }
