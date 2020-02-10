@@ -24,6 +24,7 @@ import UpdateUser from './components/User/UpdateUser';
 import AdminRoute from './components/Utils/AdminRoute';
 import AllProduct from './components/Admin/AllProduct';
 import VerifyProduct from './components/Admin/VerifyProduct';
+import AllUser from './components/Admin/AllUser';
 
 
 
@@ -49,6 +50,8 @@ class App extends Component {
                  
                     <AdminRoute exact path="/admin/dashboard" component={Admindashboard}/>
                       <AdminRoute exact path="/admin/dashboard/product" component={AllProduct}/>
+                      <AdminRoute exact path="/admin/dashboard/users" component={AllUser}/>
+                      <AdminRoute exact path="/admin/dashboard/users/:id" component={}/>
                       <AdminRoute exact path="/admin/product/verifyproduct/:id" component={VerifyProduct}/>
                       
 

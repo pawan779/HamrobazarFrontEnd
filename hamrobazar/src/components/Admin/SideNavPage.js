@@ -6,15 +6,15 @@ export default props => {
   return (
     <Menu>
       
-      <Link className="menu-item" to="/dashboard/myproduct">
-        All product
+      <Link className="menu-item" to="/admin/dashboard">
+     Admin Dashboard
       </Link>
 
-      <Link className="menu-item" to="/dashboard/product">
-        Category
+      <Link className="menu-item" to="/admin/dashboard/product">
+      All product
       </Link>
 
-      <Link className="menu-item" to="/dashboard">
+      <Link className="menu-item" to="/admin/dashboard/users">
         User Details
       </Link>
 
