@@ -24,7 +24,7 @@ export default class Adminnav extends Component {
 
                         <Nav.Link className="text-light"as={Link} to="/admin/dashboard">Admin Dashboard</Nav.Link>
                         <Nav.Link className="text-light"as={Link} to="/admin/dashboard/product">All Products</Nav.Link>
-                        <Nav.Link className="text-light"as={Link} to="/admin/dashboard/myproduct">My Product</Nav.Link>
+                        <Nav.Link className="text-light"as={Link} to="/admin/dashboard/category">Category</Nav.Link>
                         <Nav.Link className="text-light"as={Link} to="/admin/dashboard/users">User Details</Nav.Link>
                     </Nav>
                    
