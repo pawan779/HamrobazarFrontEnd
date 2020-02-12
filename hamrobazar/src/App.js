@@ -27,6 +27,7 @@ import VerifyProduct from './components/Admin/VerifyProduct';
 import AllUser from './components/Admin/AllUser';
 import ViewUser from './components/Admin/ViewUser';
 import Category from './components/Admin/Category';
+import Cart from './components/Cart';
 
 
 
@@ -44,7 +45,8 @@ class App extends Component {
                     <Route path="/login" component={Login}/>
                     <Route path="/product/:id" component={ViewProduct}/>
                     <Route path="/register" component={Register}/>
-
+                 
+                    <PrivateRoute path="/cart" component={Cart}/>
                     <PrivateRoute exact path="/dashboard" component={User}/>
                     <PrivateRoute exact path="/dashboard/users" component={UpdateUser}/>
                     <PrivateRoute exact path="/dashboard/myproduct" component={Myproduct}/>

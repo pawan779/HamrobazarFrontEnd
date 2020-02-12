@@ -46,6 +46,11 @@ export default class Navmenu extends Component {
                             <Nav.Link className="text-light" activeClassName='active' as={Link} to="/contact">Contact</Nav.Link>
 
                         </Nav>
+                        <Link to="/cart">
+                            <Button renderAs="button"   className="mr-sm-2" color="warning">
+                                Cart
+                            </Button>
+                            </Link>
                         {this.state.loggedIn
                             ? (
 
