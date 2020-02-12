@@ -64,6 +64,29 @@
   border-radius: 50%;
 }
 
+.cartImage
+{
+  width:100%;
+  height: 250px;
+  background-size: cover;
+}
+.cartImage img
+{
+  width: 100%;
+  height: 250px;
+  background-size: cover;
+}
+.addtocartImage
+{
+  width: 100%;
+  height: max-content;
+}
+.addtocartImage img
+{
+  width: 100%;
+  height: 130px;
+}
+
 .Container
 {
   margin-top: 20px;

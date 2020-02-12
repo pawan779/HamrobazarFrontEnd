@@ -9,7 +9,7 @@ import {
     CardSubtitle,
     Button,
     Container,
-    Row,Col, Alert, Input
+    Row,Col, Alert, Input, Nav
 } from 'reactstrap';
 import { Badge } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
@@ -36,6 +36,7 @@ export default class ViewProduct extends Component {
     {
         var proID = this.props.match.params.id
 
+        
         Axios
             .get("http://192.168.1.21:3001/products/" + proID)
             .then((response) => {
@@ -68,6 +69,7 @@ console.log(this.state.totalQuantity)
 addToCart=event=>{
     var data={
         productId:this.state.product._id,
+        productName:this.state.product.productName,
         quantity:this.state.totalQuantity,
         price:this.state.product.productPrice,
         image:this.state.product.image
@@ -76,6 +78,7 @@ addToCart=event=>{
     Axios.post("http://192.168.1.21:3001/cart",data,this.state.config)
     .then((response)=>{
         console.log(response.data)
+       
     })
     .catch((err)=>
     {
@@ -87,19 +90,28 @@ addToCart=event=>{
     render() {
 const {product}=this.state
         return (
-            
             <Container>
                 <ToastContainer/>
                 {product
                     ? (
                     
-                        // <Card>
+                
                         <Row>
                           
                             <Col md="6">
                             <Card>
-                            <CardImg top width="10%" src={this.state.path+product.image} alt="Card image cap"/>
+                            <Card className="cartImage">
+                                <img src={this.state.path+product.image} alt="Card image cap"/>
+                                </Card> 
                             </Card>
+
+                            <Card>
+                            <CardBody>
+                            <h5>Description</h5>
+                            <CardSubtitle>{product.productDescription}</CardSubtitle>
+                           </CardBody>
+                            </Card>
+
                             </Col>
                            
                             <Col md="6">
@@ -155,15 +167,7 @@ const {product}=this.state
                             </CardBody>
                             </Card>
                             </Col>
-                        {/* // </Card> */}
-                            <Col md="12">                 
-                            <Card>
-                            <CardBody>
-                            <h5>Description</h5>
-                            <CardSubtitle>{product.productDescription}</CardSubtitle>
-                           </CardBody>
-                            </Card>
-                            </Col>
+                
                             </Row>
                     )
                     : <Alert color="warning">No product selected</Alert>
