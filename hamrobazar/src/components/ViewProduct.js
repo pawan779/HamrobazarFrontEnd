@@ -13,6 +13,7 @@ import {
 } from 'reactstrap';
 import { Badge } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
+import { Redirect } from 'react-router-dom';
 
 export default class ViewProduct extends Component {
     constructor(props) {
@@ -22,11 +23,13 @@ export default class ViewProduct extends Component {
             product: '',
             path:'',
             totalQuantity:'1',
+            isBuy:'false',
             config: {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             },
+           
           
 
         }
@@ -75,10 +78,11 @@ addToCart=event=>{
         image:this.state.product.image
 
     }
-    Axios.post("http://192.168.1.21:3001/cart",data,this.state.config)
+    Axios.post("http://192.168.1.21:3001/buy",data,this.state.config)
     .then((response)=>{
         console.log(response.data)
-       
+       this.setState({isBuy:true
+       })
     })
     .catch((err)=>
     {
@@ -88,6 +92,12 @@ addToCart=event=>{
 
 
     render() {
+
+if(this.state.isBuy===true)
+{
+    return(<Redirect to="/checkout"/>)
+}
+
 const {product}=this.state
         return (
             <Container>
@@ -151,12 +161,12 @@ const {product}=this.state
                                       ?
                                       (
                                         <Button renderAs="button"className="mr-sm-2" color="danger">
-                                        Add to Cart
+                                        Buy
                                     </Button>
                                       )
                                       :
-                                      (    <Button renderAs="button"className="mr-sm-2" color="warning" onClick={this.addToCart}>
-                                      Add to Cart
+                                      (    <Button renderAs="button"className="mr-sm-2" color="success" onClick={this.addToCart}>
+                                      Buy
                                   </Button>)
 
                                 }

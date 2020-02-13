@@ -28,6 +28,7 @@ import AllUser from './components/Admin/AllUser';
 import ViewUser from './components/Admin/ViewUser';
 import Category from './components/Admin/Category';
 import Cart from './components/Cart';
+import Checkout from './components/Checkout';
 
 
 
@@ -47,6 +48,7 @@ class App extends Component {
                     <Route path="/register" component={Register}/>
                  
                     <PrivateRoute path="/cart" component={Cart}/>
+                    <PrivateRoute path="/checkout" component={Checkout}/>
                     <PrivateRoute exact path="/dashboard" component={User}/>
                     <PrivateRoute exact path="/dashboard/users" component={UpdateUser}/>
                     <PrivateRoute exact path="/dashboard/myproduct" component={Myproduct}/>

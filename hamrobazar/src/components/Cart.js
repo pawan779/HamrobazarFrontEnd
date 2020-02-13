@@ -58,13 +58,16 @@ export default class Cart extends Component {
         }
     }
 
-    priceChange = event => {
-        this.setState({
-            Totalprice: event.target.value + this.state.Totalprice
-        })
-    }
+
 
     render() {
+
+       function priceChange(event) {
+  
+            this.setState({
+                Totalprice: event.target.value + this.state.Totalprice
+            })
+        }
         const {cart} = this.state
         return (
             <div>
@@ -120,9 +123,14 @@ export default class Cart extends Component {
                         </Col>
                         <Col md="4">
                             <Card>
-                                <CardBody>Total Price: </CardBody>
+                                    <CardBody>Total Price:{this.priceChange} {this.state.Totalprice}</CardBody>
                                 <Card CardBody>
-                                    <Button color="primary">CheckOut</Button>
+                                <Link to="/checkout">
+                                            <Button renderAs="button" color="primary">
+                                                Checkout
+                                            </Button>
+
+                                        </Link>
                                 </Card>
                             </Card>
                         </Col>
