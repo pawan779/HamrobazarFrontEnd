@@ -30,6 +30,8 @@ export default class Checkout extends Component {
             address2: '',
             address3: '',
             product: '',
+            cartId:'',
+            Id:'',
             config: {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -46,7 +48,8 @@ export default class Checkout extends Component {
             .then((response) => {
                 console.log(response)
                 this.setState({
-                    product:response.data.products
+                    product:response.data.products,
+                    Id:response.data.cart._id
                 })
             })
         Axios
@@ -61,21 +64,35 @@ export default class Checkout extends Component {
         [event.target.name]: event.target.value
     }))
 
+
+
+    handleCashOnDelivery=event=>{
+        var data={
+            cartId:this.state.Id,
+            address1:this.state.address1,
+            address2:this.state.address2,
+            address3:this.state.address3,
+            type:false
+        }
+
+        Axios.post("http://192.168.1.21:3001/orders",data,this.state.config)
+        .then((response)=>
+        {
+            console.log("sucessfull")
+        })
+        .catch((err)=>
+        {
+            console.log(err)
+        })
+    }
+
     changeAddress = event => {
         this.setState({change: true})
     }
 
     render() {
 
-        {
-            this.state.product ?
-          (
-                product.map(products=><div key={products._id}>
-
-                </div>)
-          )
-          :null
-        }
+       
 
         async function handleToken(token) {
             console.log(token)
@@ -92,7 +109,23 @@ export default class Checkout extends Component {
                        toast("Sucessfully order the product" ,
                        {type:'success'})
 
-                       Axios.post("http://192.168.1.21:3001/orders")
+                        var data={
+                            cartId:this.state.Id,
+                            address1:this.state.address1,
+                            address2:this.state.address2,
+                            address3:this.state.address3
+                        }
+                    
+
+                    Axios.post("http://192.168.1.21:3001/orders",data,this.state.config)
+                    .then((response)=>
+                    {
+                        console.log("sucessfull")
+                    })
+                    .catch((err)=>
+                    {
+                        console.log(err)
+                    })
                     }
                     else{
                         toast("Something went wrong",
@@ -220,7 +253,7 @@ export default class Checkout extends Component {
                                     </Card> 
                                                   <hr/>
 
-                            <Button color="success">Chash on Delivery</Button>
+                            <Button color="success" onClick={this.handleCashOnDelivery}>Chash on Delivery</Button>
                             <hr/>
                             {
                                
