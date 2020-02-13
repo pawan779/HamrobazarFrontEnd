@@ -10,9 +10,14 @@ import {
     Input,
     FormGroup,
     Alert,
-    Button
+    Button,
+    CardTitle,
+    CardSubtitle,
+    CardBody
 } from 'reactstrap'
-import {Form} from 'react-bootstrap'
+import {Form, Card} from 'react-bootstrap'
+import { toast } from 'react-toastify'
+
 
 export default class Checkout extends Component {
     constructor(props) {
@@ -24,6 +29,7 @@ export default class Checkout extends Component {
             address1: '',
             address2: '',
             address3: '',
+            product: '',
             config: {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -34,9 +40,15 @@ export default class Checkout extends Component {
         }
     }
     componentWillMount() {
-        // Axios .get("http://192.168.1.21:3001/buy", this.state.config)
-        // .then((response) => {     console.log(response)     this.setState({cart: //
-        // response.data.products}) })
+        var id = this.props.match.params.id;
+        Axios
+            .get("http://192.168.1.21:3001/buy/" + id, this.state.config)
+            .then((response) => {
+                console.log(response)
+                this.setState({
+                    product:response.data.products
+                })
+            })
         Axios
             .get("http://192.168.1.21:3001/users/me", this.state.config)
             .then((response) => {
@@ -54,11 +66,43 @@ export default class Checkout extends Component {
     }
 
     render() {
-        function handleToken(token) {
-            console.log(token)
 
+        {
+            this.state.product ?
+          (
+                product.map(products=><div key={products._id}>
+
+                </div>)
+          )
+          :null
         }
 
+        async function handleToken(token) {
+            console.log(token)
+
+           const response= await Axios.post("http://192.168.1.21:3001/checkout",{
+                token,
+                product
+                
+            });
+                const {status}=response.data
+                {
+                    if(status=='success')
+                    {
+                       toast("Sucessfully order the product" ,
+                       {type:'success'})
+
+                       Axios.post("http://192.168.1.21:3001/orders")
+                    }
+                    else{
+                        toast("Something went wrong",
+                            {type:'error'}
+                        )
+                    }
+                }
+            
+        }
+        const {product} = this.state
         return (
             <div>
                 <Navmenu/>
@@ -130,7 +174,8 @@ export default class Checkout extends Component {
                                             name="address1"
                                             className="form-control "
                                             value={this.state.address1}
-                                            placeholder="Address" readOnly/>
+                                            placeholder="Address"
+                                            readOnly/>
                                     </FormGroup>
 
                                     <FormGroup>
@@ -140,7 +185,8 @@ export default class Checkout extends Component {
                                             name="address2"
                                             className="form-control "
                                             value={this.state.address2}
-                                            placeholder="Address2" readOnly/>
+                                            placeholder="Address2"
+                                            readOnly/>
                                     </FormGroup>
 
                                     <FormGroup>
@@ -150,7 +196,8 @@ export default class Checkout extends Component {
                                             name="address3"
                                             className="form-control "
                                             value={this.state.address3}
-                                            placeholder="Address3" readOnly/>
+                                            placeholder="Address3"
+                                            readOnly/>
                                     </FormGroup>
                                 </Form>
 }
@@ -158,13 +205,39 @@ export default class Checkout extends Component {
                         </Col>
 
                         <Col md="6">
+                            {product.length
+                                ? (product.map(product =>< div key = {
+                                    product._id
+                                } > <Card>
+                                    <CardBody>
+                        <CardTitle>{product.productName}</CardTitle>
+                            <CardSubtitle>Price: {product.price}</CardSubtitle>
+                            <hr/>
+                         <CardSubtitle>Quantity: {product.quantity}</CardSubtitle>
+                         <hr/>
+                            <CardSubtitle>Total Price:{product.total}</CardSubtitle>
+                            </CardBody>
+                                    </Card> 
+                                                  <hr/>
 
-                            <Button color="success">Chash on Delivery</Button>                            
+                            <Button color="success">Chash on Delivery</Button>
+                            <hr/>
+                            {
+                               
+                                    <StripeCheckout
+                                    stripeKey="pk_test_mOUfpxsf7uHArKmrOzVHLXu700t9B02FOq"
+                                    token={handleToken}
+                                    amount={product.total}
+                                    name={this.state.user.fullName}
 
-                            <StripeCheckout
-                                stripeKey="pk_test_mOUfpxsf7uHArKmrOzVHLXu700t9B02FOq"
-                                token={handleToken}/>
-
+                                    />
+                             
+                            }
+                         
+                         </div>)
+                    )
+                    : <span color="warning">No product found</span >
+}
                         </Col>
                     </Row>
                 </Container>

@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 import { Badge } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 export default class ViewProduct extends Component {
     constructor(props) {
@@ -24,6 +24,7 @@ export default class ViewProduct extends Component {
             path:'',
             totalQuantity:'1',
             isBuy:'false',
+            buy:'',
             config: {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -81,7 +82,7 @@ addToCart=event=>{
     Axios.post("http://192.168.1.21:3001/buy",data,this.state.config)
     .then((response)=>{
         console.log(response.data)
-       this.setState({isBuy:true
+       this.setState({isBuy:true,buy:response.data._id
        })
     })
     .catch((err)=>
@@ -95,7 +96,7 @@ addToCart=event=>{
 
 if(this.state.isBuy===true)
 {
-    return(<Redirect to="/checkout"/>)
+    return(<Redirect to={`/checkout/${this.state.buy}`}/>)
 }
 
 const {product}=this.state
