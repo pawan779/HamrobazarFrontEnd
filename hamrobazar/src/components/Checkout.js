@@ -17,6 +17,7 @@ import {
 } from 'reactstrap'
 import {Form, Card} from 'react-bootstrap'
 import { toast } from 'react-toastify'
+import { Redirect } from 'react-router-dom'
 
 
 export default class Checkout extends Component {
@@ -32,11 +33,13 @@ export default class Checkout extends Component {
             product: '',
             cartId:'',
             Id:'',
+            billed:'',
             config: {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             },
+            redirect:false,
             change: false
 
         }
@@ -71,14 +74,15 @@ export default class Checkout extends Component {
             cartId:this.state.Id,
             address1:this.state.address1,
             address2:this.state.address2,
-            address3:this.state.address3,
-            type:false
+            address3:this.state.address3
         }
 
         Axios.post("http://192.168.1.21:3001/orders",data,this.state.config)
         .then((response)=>
         {
-            console.log("sucessfull")
+            console.log(response)
+            this.setState({redirect:true,billed:response.data._id})
+            localStorage.setItem('cart', this.state.Id)
         })
         .catch((err)=>
         {
@@ -92,7 +96,10 @@ export default class Checkout extends Component {
 
     render() {
 
-       
+       if(this.state.redirect)
+       {
+           return(<Redirect to={`/bill/${this.state.billed}`}/>)
+       }
 
         async function handleToken(token) {
             console.log(token)
@@ -108,7 +115,7 @@ export default class Checkout extends Component {
                     {
                        toast("Sucessfully order the product" ,
                        {type:'success'})
-
+                       
                         var data={
                             cartId:this.state.Id,
                             address1:this.state.address1,
@@ -253,7 +260,7 @@ export default class Checkout extends Component {
                                     </Card> 
                                                   <hr/>
 
-                            <Button color="success" onClick={this.handleCashOnDelivery}>Chash on Delivery</Button>
+                            <Button color="success" onClick={this.handleCashOnDelivery}>Cash on Delivery</Button>
                             <hr/>
                             {
                                
