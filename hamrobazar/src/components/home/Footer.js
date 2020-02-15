@@ -1,5 +1,6 @@
 import React from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -7,26 +8,22 @@ const Footer = () => {
       <MDBContainer fluid className="text-center text-md-left">
         <MDBRow>
           <MDBCol md="6">
-            <h5 className="title">Footer Content</h5>
-            <p>
-              Here you can use rows and columns here to organize your footer
-              content.
+            <h5 className="title text-center">HamroMarket</h5>
+            <p className="text-center">
+             Welcome to Hamro Market. Nepals no1 second selling and buying shop online. You can buy and sell any items in this website.
             </p>
           </MDBCol>
-          <MDBCol md="6">
-            <h5 className="title">Links</h5>
+          <MDBCol md="6" className="text-center">
+            <h5 className="title text-center">Links</h5>
             <ul>
-              <li className="list-unstyled">
-                <a href="#!">Link 1</a>
+              <li className="list-unstyled text-center">
+                <Link to="/">Home</Link>
               </li>
-              <li className="list-unstyled">
-                <a href="#!">Link 2</a>
+              <li className="list-unstyled text-center">
+               <Link to="/about">About us</Link>
               </li>
-              <li className="list-unstyled">
-                <a href="#!">Link 3</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="#!">Link 4</a>
+              <li className="list-unstyled text-center">
+              <Link to="/contact">Contact us</Link>
               </li>
             </ul>
           </MDBCol>
@@ -34,7 +31,7 @@ const Footer = () => {
       </MDBContainer>
       <div className="footer-copyright text-center py-3">
         <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+          &copy; {new Date().getFullYear()} Copyright: <Link to="/">Hamromarket.com</Link>
         </MDBContainer>
       </div>
     </MDBFooter>

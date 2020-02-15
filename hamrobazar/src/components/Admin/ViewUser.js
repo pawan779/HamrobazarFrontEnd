@@ -35,10 +35,10 @@ export default class ViewUser extends Component {
     componentDidMount() {
         var userID = this.props.match.params.id;
         Axios
-            .get('http://192.168.1.21:3001/admin/users/'+userID, this.state.config)
+            .get('http://localhost:3001/admin/users/'+userID, this.state.config)
             .then((response) => {
                 console.log(response)
-                this.setState({users: response.data, path: "http://192.168.1.21:3001/uploads/"})
+                this.setState({users: response.data, path: "http://localhost:3001/uploads/"})
                     .catch(err => {
                         console.log(err)
                     })

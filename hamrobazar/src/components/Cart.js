@@ -35,10 +35,10 @@ export default class Cart extends Component {
     componentWillMount() {
 
         Axios
-            .get("http://192.168.1.21:3001/cart", this.state.config)
+            .get("http://localhost:3001/cart", this.state.config)
             .then((response) => {
                 console.log(response)
-                this.setState({cart: response.data.products, cartItem: response.data, path: "http://192.168.1.21:3001/uploads/"})
+                this.setState({cart: response.data.products, cartItem: response.data, path: "http://localhost:3001/uploads/"})
             })
     }
 
@@ -46,7 +46,7 @@ export default class Cart extends Component {
         if (confirm("Are you sure to delete this item ?")) {
 
             Axios
-                .delete("http://192.168.1.21:3001/cart/products/" + event, this.state.config)
+                .delete("http://localhost:3001/cart/products/" + event, this.state.config)
                 .then((response) => {
                     console.log(response.data)
                     this.setState({isDeleted: "Product deleted sucessfully"})

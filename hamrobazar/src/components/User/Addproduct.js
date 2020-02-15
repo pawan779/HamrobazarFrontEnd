@@ -19,6 +19,7 @@ import Usernav from './Usernav';
 import SideNavPage from './SideNavPage';
 import {Editor} from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import Footer from '../home/Footer';
 
 export default class Addproduct extends Component {
     constructor(props) {
@@ -50,7 +51,7 @@ export default class Addproduct extends Component {
 
     componentWillMount() {
         Axios
-            .get("http://192.168.1.21:3001/category", this.state.config)
+            .get("http://localhost:3001/category", this.state.config)
             .then((response) => {
                 console.log(response.data)
                 this.setState({cat: response.data})
@@ -109,7 +110,7 @@ export default class Addproduct extends Component {
         const fd = new FormData();
         fd.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
         Axios
-            .post('http://192.168.1.21:3001/upload', fd)
+            .post('http://localhost:3001/upload', fd)
             .then((res) => {
                 console.log(res);
                 this.setState({imageIs: res.data.filename});
@@ -137,7 +138,7 @@ export default class Addproduct extends Component {
                 image: this.state.imageIs
             }
             Axios
-                .post('http://192.168.1.21:3001/products', data, this.state.config)
+                .post('http://localhost:3001/products', data, this.state.config)
                 .then((response) => {
                     console.log(response.data)
                     if (response.status == 200) {
@@ -302,6 +303,7 @@ export default class Addproduct extends Component {
                             </Row>
                         </Form>
                     </Container>
+                    <Footer/>
                 </div>
             </div>
         )

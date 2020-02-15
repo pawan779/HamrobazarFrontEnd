@@ -42,10 +42,10 @@ export default class AllProduct extends Component {
 
     componentDidMount() {
         Axios
-            .get("http://192.168.1.21:3001/admin/products",this.state.config)
+            .get("http://localhost:3001/admin/products",this.state.config)
             .then((response) => {
                 console.log(response.data)
-                this.setState({products: response.data, path: 'http://192.168.1.21:3001/uploads/',userID:response.data.user})
+                this.setState({products: response.data, path: 'http://localhost:3001/uploads/',userID:response.data.user})
             })
 
     }
@@ -101,10 +101,6 @@ export default class AllProduct extends Component {
 
                                     </td>
                                     </tr>
-   
-
-                              
-                         
 
                         </tbody>
                         
@@ -125,13 +121,3 @@ export default class AllProduct extends Component {
     }
 }
 
-// <Card> <CardBody> <img width="20%" src={this.state.path+product.image}
-// alt="Card image"/> </CardBody> <CardBody>
-// <CardTitle>{product.productName}</CardTitle>
-// <CardSubtitle>{product.productCondition}</CardSubtitle>
-// <CardSubtitle>Price: Rs.{product.productPrice}</CardSubtitle>
-// <CardText>{product.productDescription}</CardText>    <CardLink className="btn
-// btn-primary" onClick={()=>
-// this.props.handleEdit(product._id)}>Edit</CardLink>    <CardLink
-// className="btn btn-danger"> <Link className="text-light"
-// to="/admin/dashboard/myproduct">Delete</Link></CardLink> </CardBody> </Card>

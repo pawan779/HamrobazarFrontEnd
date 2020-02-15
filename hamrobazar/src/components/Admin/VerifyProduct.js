@@ -39,7 +39,7 @@ export default class VerifyProduct extends Component {
 
         var proID = this.props.match.params.id;
         Axios
-            .get("http://192.168.1.21:3001/admin/product/" + proID, this.state.config)
+            .get("http://localhost:3001/admin/product/" + proID, this.state.config)
             .then((response) => {
              
 
@@ -47,7 +47,7 @@ export default class VerifyProduct extends Component {
 
                 this.setState({
                     products: response.data,
-                    path: 'http://192.168.1.21:3001/uploads/',
+                    path: 'http://localhost:3001/uploads/',
                     userID:response.data.user
                 })
             })
@@ -55,7 +55,7 @@ export default class VerifyProduct extends Component {
     verifyProduct=event=>{
 
         var data={isVerified:true}
-        Axios.put("http://192.168.1.21:3001/admin/product/"+event.target.value,data,this.state.config)
+        Axios.put("http://localhost:3001/admin/product/"+event.target.value,data,this.state.config)
         .then((response)=>{
                 console.log(response.data)
                 this.setState({redirect:true})

@@ -22,7 +22,7 @@ export default class Navmenu extends Component {
 
     componentWillMount() {
         axios
-            .get('http://192.168.1.21:3001/users/me', this.state.config)
+            .get('http://localhost:3001/users/me', this.state.config)
             .then((response) => {
                 this.setState({user: response.data,loggedIn:true})
             })
@@ -46,26 +46,27 @@ export default class Navmenu extends Component {
                             <Nav.Link className="text-light" activeClassName='active' as={Link} to="/contact">Contact</Nav.Link>
 
                         </Nav>
-                        <Link to="/cart">
-                            <Button renderAs="button"   className="mr-sm-2" color="warning">
-                                Cart
-                            </Button>
-                            </Link>
+                       
                         {this.state.loggedIn
                             ? (
 
                                 <NavDropdown
                                     title={this.state.user.fullName}
-                                    className="mr-sm-2 btn btn-dark"
+                                    className="mr-sm-2 bg-light"
                                     id="basic-nav-dropdown">
                                     <NavDropdown.Item as={Link} to="/logout">Logout</NavDropdown.Item>
-                                    <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                                     <NavDropdown.Divider/>
-                                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/dashboard">Dashboard</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/dashboard/product">Add Product</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/dashboard/product">My Product</NavDropdown.Item>
+                                   
                                 </NavDropdown>
                             )
-                            : <Link to="/login" color="light">Login</Link>
+                            :  <Link to="/login">
+                            <Button renderAs="button" color="primary">
+                                Login
+                            </Button>
+                            </Link>
 }
 
                     </Navbar.Collapse>

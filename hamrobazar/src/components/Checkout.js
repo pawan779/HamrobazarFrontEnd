@@ -18,6 +18,7 @@ import {
 import {Form, Card} from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import { Redirect } from 'react-router-dom'
+import Footer from './home/Footer'
 
 
 export default class Checkout extends Component {
@@ -47,7 +48,7 @@ export default class Checkout extends Component {
     componentWillMount() {
         var id = this.props.match.params.id;
         Axios
-            .get("http://192.168.1.21:3001/buy/" + id, this.state.config)
+            .get("http://localhost:3001/buy/" + id, this.state.config)
             .then((response) => {
                 console.log(response)
                 this.setState({
@@ -56,7 +57,7 @@ export default class Checkout extends Component {
                 })
             })
         Axios
-            .get("http://192.168.1.21:3001/users/me", this.state.config)
+            .get("http://localhost:3001/users/me", this.state.config)
             .then((response) => {
                 console.log(response)
                 this.setState({user: response.data, address1: response.data.address1, address2: response.data.address2, address3: response.data.address3})
@@ -77,7 +78,7 @@ export default class Checkout extends Component {
             address3:this.state.address3
         }
 
-        Axios.post("http://192.168.1.21:3001/orders",data,this.state.config)
+        Axios.post("http://localhost:3001/orders",data,this.state.config)
         .then((response)=>
         {
             console.log(response)
@@ -104,7 +105,7 @@ export default class Checkout extends Component {
         async function handleToken(token) {
             console.log(token)
 
-           const response= await Axios.post("http://192.168.1.21:3001/checkout",{
+           const response= await Axios.post("http://localhost:3001/checkout",{
                 token,
                 product
                 
@@ -124,7 +125,7 @@ export default class Checkout extends Component {
                         }
                     
 
-                    Axios.post("http://192.168.1.21:3001/orders",data,this.state.config)
+                    Axios.post("http://localhost:3001/orders",data,this.state.config)
                     .then((response)=>
                     {
                         console.log("sucessfull")
@@ -281,7 +282,7 @@ export default class Checkout extends Component {
                         </Col>
                     </Row>
                 </Container>
-
+<Footer/>
             </div>
         )
     }

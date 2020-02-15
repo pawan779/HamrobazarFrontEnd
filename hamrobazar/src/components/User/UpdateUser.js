@@ -14,6 +14,7 @@ import {
 import Axios from 'axios'
 import {Link, Redirect} from 'react-router-dom'
 import {toast} from 'react-toastify';
+import Footer from '../home/Footer'
 
 export default class UpdateUser extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ export default class UpdateUser extends Component {
 
     componentWillMount() {
         Axios
-            .get("http://192.168.1.21:3001/users/me", this.state.config)
+            .get("http://localhost:3001/users/me", this.state.config)
             .then((response) => {
                 console.log(response)
                 this.setState({
@@ -52,7 +53,7 @@ export default class UpdateUser extends Component {
                     phone: response.data.phone,
                     mobilePhone: response.data.mobilePhone,
                     image: response.data.image,
-                    path: 'http://192.168.1.21:3001/uploads/'
+                    path: 'http://localhost:3001/uploads/'
                 })
             })
     }
@@ -119,7 +120,7 @@ export default class UpdateUser extends Component {
         const fd = new FormData();
         fd.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
         Axios
-            .post('http://192.168.1.21:3001/upload', fd)
+            .post('http://localhost:3001/upload', fd)
             .then((res) => {
                 console.log(res);
                 this.setState({imageIS: res.data.filename});
@@ -147,7 +148,7 @@ export default class UpdateUser extends Component {
                 image: this.state.imageIS
             }
             Axios
-                .put('http://192.168.1.21:3001/users/me', data, this.state.config)
+                .put('http://localhost:3001/users/me', data, this.state.config)
                 .then((response) => {
                     console.log(response.data)
                     if (response.status == 200) {
@@ -324,6 +325,7 @@ export default class UpdateUser extends Component {
                       
                     </Container>
                 </div>
+                <Footer/>
             </div>
         )
     }

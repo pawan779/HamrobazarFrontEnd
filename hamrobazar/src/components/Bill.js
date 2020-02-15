@@ -37,7 +37,7 @@ export default class Bill extends Component {
     componentDidMount() {
         var id = this.props.match.params.id;
         Axios
-            .get('http://192.168.1.21:3001/users/me', this.state.config)
+            .get('http://localhost:3001/users/me', this.state.config)
             .then((response) => {
                 console.log(response)
                 this
@@ -48,7 +48,7 @@ export default class Bill extends Component {
 
             })
         Axios
-            .get("http://192.168.1.21:3001/orders/" + id, this.state.config)
+            .get("http://localhost:3001/orders/" + id, this.state.config)
             .then((response) => {
                 console.log(response)
                 this.setState({orders:response.data})
@@ -56,7 +56,7 @@ export default class Bill extends Component {
 
         var cartID = localStorage.getItem("cart")
         Axios
-            .get("http://192.168.1.21:3001/buy/" + cartID, this.state.config)
+            .get("http://localhost:3001/buy/" + cartID, this.state.config)
             .then((response) => {
                 console.log(response)
                 this.setState({products: response.data.products})

@@ -44,7 +44,7 @@ export default class Category extends Component {
 
     componentDidMount() {
         Axios
-            .get("http://192.168.1.21:3001/category",this.state.config)
+            .get("http://localhost:3001/category",this.state.config)
             .then((response) => {
                 console.log(response.data)
                 this.setState({category: response.data})
@@ -53,7 +53,7 @@ export default class Category extends Component {
     }
 
 editCategory=event=>{
-    Axios.get("http://192.168.1.21:3001/category/"+event.target.value,this.state.config)
+    Axios.get("http://localhost:3001/category/"+event.target.value,this.state.config)
     .then((response)=>{
         console.log(response.data)
         {
@@ -69,7 +69,7 @@ updateCategory=event=>{
         var data = {
             name: this.state.editCategory
         }
-    Axios.put("http://192.168.1.21:3001/category/"+event.target.value,data,this.state.config)
+    Axios.put("http://localhost:3001/category/"+event.target.value,data,this.state.config)
     .then((response)=>
     {
         console.log(response.data)
@@ -90,7 +90,7 @@ validate = () => {
 
 
 deleteCategory=event=>{
-    Axios.delete("http://192.168.1.21:3001/category/"+event.target.value,this.state.config)
+    Axios.delete("http://localhost:3001/category/"+event.target.value,this.state.config)
     .then((response)=>{
         console.log(response.data)
         this.setState({redirect:true})
@@ -112,7 +112,7 @@ saveCategory=event=>{
         var data = {
             name: this.state.categoryName
         }
-    Axios.post("http://192.168.1.21:3001/category",data,this.state.config)
+    Axios.post("http://localhost:3001/category",data,this.state.config)
     .then((response)=>{
         console.log(response)
         this.setState({redirect:true})

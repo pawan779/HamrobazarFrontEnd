@@ -14,6 +14,8 @@ import {
 import { Badge } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import { Redirect, Link } from 'react-router-dom';
+import Navmenu from './Navmenu';
+import Footer from './home/Footer';
 
 export default class ViewProduct extends Component {
     constructor(props) {
@@ -42,10 +44,10 @@ export default class ViewProduct extends Component {
 
         
         Axios
-            .get("http://192.168.1.21:3001/products/" + proID)
+            .get("http://localhost:3001/products/" + proID)
             .then((response) => {
                 console.log(response.data)
-                this.setState({product: response.data, path:"http://192.168.1.21:3001/uploads/",totalQuantity:1})
+                this.setState({product: response.data, path:"http://localhost:3001/uploads/",totalQuantity:1})
             })
     }
 
@@ -79,7 +81,7 @@ addToCart=event=>{
         image:this.state.product.image
 
     }
-    Axios.post("http://192.168.1.21:3001/buy",data,this.state.config)
+    Axios.post("http://localhost:3001/buy",data,this.state.config)
     .then((response)=>{
         console.log(response.data)
        this.setState({isBuy:true,buy:response.data._id
@@ -101,7 +103,10 @@ if(this.state.isBuy===true)
 
 const {product}=this.state
         return (
+            <div>
+   <Navmenu/>
             <Container>
+             
                 <ToastContainer/>
                 {product
                     ? (
@@ -185,7 +190,8 @@ const {product}=this.state
             }
            
              </Container>
-             
+             <Footer/>
+             </div>
         )
     }
 }
