@@ -16,6 +16,7 @@ import {
 import SideNavPage from './SideNavPage'
 import Adminnav from './Adminnav'
 import {Link} from 'react-router-dom'
+import Footer from '../home/Footer'
 
 export default class ViewUser extends Component {
     constructor(props) {
@@ -83,6 +84,7 @@ export default class ViewUser extends Component {
                     </Row>
 
                 </Container>
+                <Footer/>
             </div>
         )
     }

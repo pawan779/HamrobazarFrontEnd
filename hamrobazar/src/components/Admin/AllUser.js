@@ -19,6 +19,7 @@ import {Link, Redirect} from 'react-router-dom'
 import SideNavPage from './SideNavPage'
 import Adminnav from './Adminnav'
 import { toast } from 'react-toastify'
+import Footer from '../home/Footer'
 
 export default class AllUser extends Component {
     constructor(props) {
@@ -113,6 +114,7 @@ export default class AllUser extends Component {
                 
             </Table>
             </Container>
+            <Footer/>
             </div>
         )
     }

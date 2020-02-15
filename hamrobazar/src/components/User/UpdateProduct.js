@@ -32,6 +32,7 @@ export default class UpdateProduct extends Component {
             product: '',
             productName: '',
             productPrice: '',
+            quantity:'',
             productDescription: '',
             productCondition: '',
             category: '',
@@ -40,11 +41,13 @@ export default class UpdateProduct extends Component {
             productDescriptionError: '',
             productConditionError: '',
             categoryError: '',
+            quantityError:'',
             selectedFile: '',
             checkValidImage: '',
             redirect: false,
             ID: '',
-            imageIS:''
+            imageIS: '',
+            cat:''
         }
     }
 
@@ -67,6 +70,7 @@ export default class UpdateProduct extends Component {
                     productName: response.data.productName,
                     productPrice: response.data.productPrice,
                     productCondition: response.data.productCondition,
+                    quantity:response.data.quantity,
                     image: response.data.image,
                     productDescription: response.data.productDescription,
                     category: response.data.category,
@@ -74,7 +78,16 @@ export default class UpdateProduct extends Component {
                 })
             })
 
+            Axios
+            .get("http://localhost:3001/category", this.state.config)
+            .then((response) => {
+                console.log(response.data)
+                this.setState({cat: response.data})
+            })
+    
+
     }
+
 
     handleFileSelected = event => {
         this.setState({selectedFile: event.target.files[0]})
@@ -94,6 +107,7 @@ export default class UpdateProduct extends Component {
         let productDescriptionError = "";
         let productConditionError = "";
         let categoryError = "";
+    let quantityError="";
 
         if (!this.state.productName) {
             productNameError = "Full name cannot be empty";
@@ -104,6 +118,15 @@ export default class UpdateProduct extends Component {
         if (!this.state.productPrice) {
             productPriceError = "Product price cannot be empty"
         }
+        if (!this.state.quantity) {
+            quantityError = "Quantity cannot be empty"
+        }
+        if (this.state.quantity.includes("-")) {
+            quantityError = "Invalid quantity"
+        }
+        if (this.state.productPrice.includes("-")) {
+            productPriceError = "Invalid price"
+        }
         if (!this.state.productDescription) {
             productDescriptionError = "Product Description cannot be empty"
         }
@@ -111,13 +134,12 @@ export default class UpdateProduct extends Component {
             productConditionError = "Product Condition cannot be empty"
         }
 
-        if (productNameError || productPriceError || productDescriptionError || productConditionError || categoryError) {
-            this.setState({productNameError, productPriceError, productDescriptionError, productConditionError, categoryError})
+        if (productNameError || productPriceError || productDescriptionError || quantityError||productConditionError || categoryError) {
+            this.setState({productNameError, productPriceError, productDescriptionError,quantityError, productConditionError, categoryError})
             return false;
         }
         return true;
     }
-
 
     uploadImage = event => {
         event.preventDefault();
@@ -139,37 +161,35 @@ export default class UpdateProduct extends Component {
 
     }
 
-
-
     handleSubmit = event => {
         event.preventDefault();
         const isValid = this.validate();
         if (isValid) {
 
-
-                    var data = {
-                        productName: this.state.productName,
-                        productPrice: this.state.productPrice,
-                        productDescription: this.state.productDescription,
-                        productCondition: this.state.productCondition,
-                        category: this.state.category,
-                        image: this.state.imageIS
+            var data = {
+                productName: this.state.productName,
+                productPrice: this.state.productPrice,
+                quantity:this.state.quantity,
+                productDescription: this.state.productDescription,
+                productCondition: this.state.productCondition,
+                category: this.state.category,
+                image: this.state.imageIS
+            }
+            Axios
+                .put('http://localhost:3001/products/' + this.state.ID, data, this.state.config)
+                .then((response) => {
+                    console.log(response.data)
+                    if (response.status == 200) {
+                        this.setState({redirect: true})
                     }
-                    Axios
-                        .put('http://localhost:3001/products/' + this.state.ID, data, this.state.config)
-                        .then((response) => {
-                            console.log(response.data)
-                            if (response.status == 200) {
-                                this.setState({redirect: true})
-                            }
-                            toast("Product Updated!!")
+                    toast("Product Updated!!")
 
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                            this.setState({checkValidImage: "Unsucessfull"})
-                            toast("Product couldnot be updated")
-                        })
+                })
+                .catch((err) => {
+                    console.log(err)
+                    this.setState({checkValidImage: "Unsucessfull"})
+                    toast("Product couldnot be updated")
+                })
 
         }
 
@@ -180,6 +200,7 @@ export default class UpdateProduct extends Component {
             return (<Redirect to="/dashboard/myproduct"/>)
         }
         const {product} = this.state
+        const {cat} = this.state
 
         // for image preview
         let $imagePreview = (
@@ -213,14 +234,14 @@ export default class UpdateProduct extends Component {
 
                                         <div>
                                             <input
-                                              style={{
+                                                style={{
                                                 display: 'none'
                                             }}
                                                 type="file"
                                                 inputProps={{
                                                 accept: 'image/*'
                                             }}
-                                            id="previewImage"
+                                                id="previewImage"
                                                 name="avatar"
                                                 onChange={this.handleFileSelected}
                                                 ref={fileInput => this.fileInput = fileInput}/> {$imagePreview}
@@ -284,7 +305,20 @@ export default class UpdateProduct extends Component {
                                             )
                                             : null}
                                     </FormGroup>
+                                    <FormGroup>
 
+                                        <Input
+                                            type="number"
+                                            name="quantity"
+                                            className="form-control "
+                                            value={this.state.quantity}
+                                            onChange={this.handleChange}placeholder="Product Quantity"/> {this.state.quantityError
+                                            ? (
+                                                <Alert color="danger" size="sm" className="mt-2">
+                                                    {this.state.quantityError}</Alert>
+                                            )
+                                            : null}
+                                    </FormGroup>
                                     <FormGroup>
 
                                         <Input
@@ -301,18 +335,30 @@ export default class UpdateProduct extends Component {
                                     </FormGroup>
 
                                     <FormGroup>
-
-                                        <Input
-                                            type="text"
+                                        <label htmlFor="category">Select Category</label>
+                                        <select
                                             name="category"
-                                            className="form-control "
+                                            id="category"
                                             value={this.state.category}
-                                            onChange={this.handleChange}placeholder="Category"/> {this.state.categoryError
+                                            className="form-control"
+                                            onChange={this.handleChange}>
+                                            {cat.length
+                                                ? (cat.map(cats => {
+                                                    return (
+                                                        <option value={cats._id}>{cats.name}</option>
+                                                    )
+                                                }))
+                                                : null
+}
+
+                                        </select>
+                                        {this.state.categoryError
                                             ? (
                                                 <Alert color="danger" size="sm" className="mt-2">
                                                     {this.state.categoryError}</Alert>
                                             )
-                                            : null}
+                                            : null
+}
                                     </FormGroup>
 
                                     <Button color="primary" type="Update">Submit</Button>

@@ -19,6 +19,7 @@ import {Redirect} from 'react-router-dom'
 import SideNavPage from './SideNavPage'
 import Adminnav from './Adminnav'
 import { toast } from 'react-toastify'
+import Footer from '../home/Footer'
 
 export default class Category extends Component {
     constructor(props) {
@@ -228,6 +229,7 @@ addCategory=event=>{
                 
             </Table>
             </Container>
+            <Footer/>
             </div>
         )
     }

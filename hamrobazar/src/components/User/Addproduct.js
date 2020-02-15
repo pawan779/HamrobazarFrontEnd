@@ -30,10 +30,12 @@ export default class Addproduct extends Component {
             productPrice: '',
             productDescription: '',
             productCondition: '',
+            quantity:'',
             category: '',
             productNameError: '',
             productPriceError: '',
             productDescriptionError: '',
+            quantityError:'',
             productConditionError: '',
             categoryError: '',
             selectedFile: '',
@@ -79,6 +81,7 @@ export default class Addproduct extends Component {
         let productDescriptionError = "";
         let productConditionError = "";
         let categoryError = "";
+        let quantityError=""
 
         if (!this.state.productName) {
             productNameError = "Title name cannot be empty";
@@ -95,11 +98,19 @@ export default class Addproduct extends Component {
         if (this.state.productPrice.length > 7) {
             productPriceError = "Product price exceeds"
         }
+        if (!this.state.productPrice) {
+            productPriceError = "Product price cannot be empty"
+        } if (!this.state.quantity) {
+            productPriceError = "Quantity cannot be empty"
+        }
         if (this.state.productPrice.includes("-")) {
             productPriceError = "Invalid price"
         }
-        if (productNameError || productPriceError || productDescriptionError || productConditionError || categoryError) {
-            this.setState({productNameError, productPriceError, productDescriptionError, productConditionError, categoryError})
+        if (this.state.quantity.includes("-")) {
+            quantityError = "Invalid quantity"
+        }
+        if (productNameError || productPriceError || productDescriptionError || productConditionError || categoryError|| quantityError) {
+            this.setState({productNameError, productPriceError, productDescriptionError,productNameError,quantityError, productConditionError, categoryError})
             return false;
         }
         return true;
@@ -134,6 +145,7 @@ export default class Addproduct extends Component {
                 productPrice: this.state.productPrice,
                 productDescription: this.state.productDescription,
                 productCondition: this.state.productCondition,
+                quantity:this.state.quantity,
                 category: this.state.category,
                 image: this.state.imageIs
             }
@@ -198,9 +210,9 @@ export default class Addproduct extends Component {
                                                 onChange={this.handleFileSelected}/> {$imagePreview}
                                         </div>
                                         <div className="text-center mt-2">
-                                        <Button onClick={this.uploadImage} color="dark">Upload Image</Button>
+                                            <Button onClick={this.uploadImage} color="dark">Upload Image</Button>
                                         </div>
-                                     
+
                                         {this.state.checkValidImage
                                             ? (
                                                 <Alert>{this.state.checkValidImage}</Alert>
@@ -240,7 +252,20 @@ export default class Addproduct extends Component {
                                             )
                                             : null}
                                     </FormGroup>
+                                    <FormGroup>
 
+                                        <Input
+                                            type="number"
+                                            name="quantity"
+                                            className="form-control "
+                                            value={this.state.quantity}
+                                            onChange={this.handleChange}placeholder="Product Quantity"/> {this.state.quantityError
+                                            ? (
+                                                <Alert color="danger" size="sm" className="mt-2">
+                                                    {this.state.quantityError}</Alert>
+                                            )
+                                            : null}
+                                    </FormGroup>
                                     <FormGroup>
 
                                         <Input
@@ -257,7 +282,7 @@ export default class Addproduct extends Component {
                                     </FormGroup>
 
                                     <FormGroup>
-                                                <label htmlFor="category">Select Category</label>
+                                        <label htmlFor="category">Select Category</label>
                                         <select
                                             name="category"
                                             id="category"
