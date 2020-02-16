@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container } from 'reactstrap'
 import Navmenu from './Navmenu'
+import Footer from './home/Footer'
 
 class About extends Component {
     render() {
@@ -19,7 +20,7 @@ class About extends Component {
                 Harum labore totam distinctio enim perferendis debitis. Tempora perferendis porro dignissimos. Perspiciatis corrupti maiores magni iste facere, quis ipsam quod ratione nihil iure perferendis, accusantium excepturi corporis ad veniam. Reprehenderit.</span>
          
                 </Container>
-
+<Footer/>
                 </div>
         )
     }

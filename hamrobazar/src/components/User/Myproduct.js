@@ -21,6 +21,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './Dashboard'
 import SideNavPage from './SideNavPage'
+import Footer from '../home/Footer'
 
 export default class Myproduct extends Component {
     constructor(props) {
@@ -57,10 +58,10 @@ export default class Myproduct extends Component {
     }
     componentDidMount() {
         axios
-            .get('http://192.168.1.21:3001/products/my', this.state.config)
+            .get('http://localhost:3001/products/my', this.state.config)
             .then((response) => {
                 console.log(response)
-                this.setState({products: response.data, path: 'http://192.168.1.21:3001/uploads/'})
+                this.setState({products: response.data, path: 'http://localhost:3001/uploads/'})
             })
             .catch(err => {
                 console.log(err)
@@ -71,7 +72,7 @@ export default class Myproduct extends Component {
       if(confirm("Are you sure to delete this item ?"))
       {
 
-        Axios.delete("http://192.168.1.21:3001/products/"+event,this.state.config)
+        Axios.delete("http://localhost:3001/products/"+event,this.state.config)
         .then((response)=>{
             console.log(response.data)
         this.setState({isDeleted:"Product deleted sucessfully"})
@@ -135,6 +136,7 @@ export default class Myproduct extends Component {
 }
 </Row>            
 </Container>
+<Footer/>
 </div>
         )
     }

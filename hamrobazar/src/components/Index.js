@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Container, Alert,Card,CardBody,CardTitle,CardSubtitle,Row, CardLink, Button } from 'reactstrap'
+import { Container, Alert,Card,CardBody,CardTitle,CardSubtitle,Row, CardLink, Button, Input } from 'reactstrap'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Search from './home/Search'
@@ -21,11 +21,11 @@ export default class Index extends Component {
     componentDidMount()
     {
         // fro latest 6 products
-        axios.get("http://192.168.1.21:3001/products/latest")
+        axios.get("http://localhost:3001/products/latest")
         .then((response)=>{
             console.log(response)
             this.setState({posts:response.data,
-            path:'http://192.168.1.21:3001/uploads/'})
+            path:'http://localhost:3001/uploads/'})
         })
        
         .catch(err=>{
@@ -42,20 +42,29 @@ export default class Index extends Component {
          <div>
 <Navmenu/>
            <Container fluid={true}>
-               <ImageSlider/>
-               <Search/>
+               {/* <ImageSlider/> */}
                <Container>
+
+               <div className="Search">
+                    <Input className="searchInput mx-auto"type="search" width="90%" placeholder="Search product"></Input>
+
+            </div>
             <Row>
             {
                 posts.length ?
                 (posts.map(post=><Card className="col-sm-6 col-md-3" key={post._id}>
-               <CardBody>
+               <CardBody >
                 <img className="imageResponsive" src={this.state.path + post.image} alt="Card image"/>
                 </CardBody>
             <CardBody>
                 <CardTitle>{post.productName}</CardTitle>
                 <CardSubtitle>Price: Rs.{post.productPrice}</CardSubtitle>
-<Button color="success"><Link to={`/product/${post._id}`}>View</Link></Button>
+                <Link to={`/product/${post._id}`}>
+                            <Button renderAs="button" color="success">
+                                View
+                            </Button>
+                            </Link>
+
                
                 {/* <CardLink className="btnbtn-primary" value={product._id}
                     onClick={this.handleEdit}>Edit</CardLink>

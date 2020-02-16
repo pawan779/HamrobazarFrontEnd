@@ -19,6 +19,7 @@ import {Link, Redirect} from 'react-router-dom'
 import SideNavPage from './SideNavPage'
 import Adminnav from './Adminnav'
 import { toast } from 'react-toastify'
+import Footer from '../home/Footer'
 
 export default class AllUser extends Component {
     constructor(props) {
@@ -40,10 +41,10 @@ export default class AllUser extends Component {
 
     componentDidMount() {
         Axios
-            .get("http://192.168.1.21:3001/users/all",this.state.config)
+            .get("http://localhost:3001/users/all",this.state.config)
             .then((response) => {
                 console.log(response.data)
-                this.setState({user: response.data, path: 'http://192.168.1.21:3001/uploads/',userID:response.data.user})
+                this.setState({user: response.data, path: 'http://localhost:3001/uploads/',userID:response.data.user})
             })
 
     }
@@ -113,6 +114,7 @@ export default class AllUser extends Component {
                 
             </Table>
             </Container>
+            <Footer/>
             </div>
         )
     }

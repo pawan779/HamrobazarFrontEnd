@@ -9,10 +9,13 @@ import {
     CardSubtitle,
     Button,
     Container,
-    Row,Col, Alert, Input
+    Row,Col, Alert, Input, Nav
 } from 'reactstrap';
 import { Badge } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
+import { Redirect, Link } from 'react-router-dom';
+import Navmenu from './Navmenu';
+import Footer from './home/Footer';
 
 export default class ViewProduct extends Component {
     constructor(props) {
@@ -22,11 +25,14 @@ export default class ViewProduct extends Component {
             product: '',
             path:'',
             totalQuantity:'1',
+            isBuy:'false',
+            buy:'',
             config: {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             },
+           
           
 
         }
@@ -36,11 +42,12 @@ export default class ViewProduct extends Component {
     {
         var proID = this.props.match.params.id
 
+        
         Axios
-            .get("http://192.168.1.21:3001/products/" + proID)
+            .get("http://localhost:3001/products/" + proID)
             .then((response) => {
                 console.log(response.data)
-                this.setState({product: response.data, path:"http://192.168.1.21:3001/uploads/",totalQuantity:1})
+                this.setState({product: response.data, path:"http://localhost:3001/uploads/",totalQuantity:1})
             })
     }
 
@@ -68,14 +75,17 @@ console.log(this.state.totalQuantity)
 addToCart=event=>{
     var data={
         productId:this.state.product._id,
+        productName:this.state.product.productName,
         quantity:this.state.totalQuantity,
         price:this.state.product.productPrice,
         image:this.state.product.image
 
     }
-    Axios.post("http://192.168.1.21:3001/cart",data,this.state.config)
+    Axios.post("http://localhost:3001/buy",data,this.state.config)
     .then((response)=>{
         console.log(response.data)
+       this.setState({isBuy:true,buy:response.data._id
+       })
     })
     .catch((err)=>
     {
@@ -85,21 +95,39 @@ addToCart=event=>{
 
 
     render() {
+
+if(this.state.isBuy===true)
+{
+    return(<Redirect to={`/checkout/${this.state.buy}`}/>)
+}
+
 const {product}=this.state
         return (
-            
+            <div>
+   <Navmenu/>
             <Container>
+             
                 <ToastContainer/>
                 {product
                     ? (
                     
-                        // <Card>
+                
                         <Row>
                           
                             <Col md="6">
                             <Card>
-                            <CardImg top width="10%" src={this.state.path+product.image} alt="Card image cap"/>
+                            <Card className="cartImage">
+                                <img src={this.state.path+product.image} alt="Card image cap"/>
+                                </Card> 
                             </Card>
+
+                            <Card>
+                            <CardBody>
+                            <h5>Description</h5>
+                            <CardSubtitle>{product.productDescription}</CardSubtitle>
+                           </CardBody>
+                            </Card>
+
                             </Col>
                            
                             <Col md="6">
@@ -139,12 +167,12 @@ const {product}=this.state
                                       ?
                                       (
                                         <Button renderAs="button"className="mr-sm-2" color="danger">
-                                        Add to Cart
+                                        Buy
                                     </Button>
                                       )
                                       :
-                                      (    <Button renderAs="button"className="mr-sm-2" color="warning" onClick={this.addToCart}>
-                                      Add to Cart
+                                      (    <Button renderAs="button"className="mr-sm-2" color="success" onClick={this.addToCart}>
+                                      Buy
                                   </Button>)
 
                                 }
@@ -155,22 +183,15 @@ const {product}=this.state
                             </CardBody>
                             </Card>
                             </Col>
-                        {/* // </Card> */}
-                            <Col md="12">                 
-                            <Card>
-                            <CardBody>
-                            <h5>Description</h5>
-                            <CardSubtitle>{product.productDescription}</CardSubtitle>
-                           </CardBody>
-                            </Card>
-                            </Col>
+                
                             </Row>
                     )
                     : <Alert color="warning">No product selected</Alert>
             }
            
              </Container>
-             
+             <Footer/>
+             </div>
         )
     }
 }

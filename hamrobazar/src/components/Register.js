@@ -116,7 +116,7 @@ class Register extends Component {
         const fd = new FormData();
         fd.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
         Axios
-            .post('http://192.168.1.21:3001/upload', fd)
+            .post('http://localhost:3001/upload', fd)
             .then((res) => {
                 console.log(res);
                 this.setState({imageIS: res.data.filename});
@@ -152,7 +152,7 @@ class Register extends Component {
                 image: this.state.imageIS
             }
             Axios
-                .post('http://192.168.1.21:3001/users/register', data, headers)
+                .post('http://localhost:3001/users/register', data, headers)
                 .then((response) => {
                     console.log(response)
                     if (response.status == 200) {

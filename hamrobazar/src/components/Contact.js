@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container } from 'reactstrap'
 import { Redirect } from 'react-router-dom'
 import Navmenu from './Navmenu'
+import Footer from './home/Footer'
 
 class Contact extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class Contact extends Component {
     }
     // componentDidMount() {
     //     axios
-    //         .get('http://192.168.1.21:3001/users/me', this.state.config
+    //         .get('http://localhost:3001/users/me', this.state.config
     //     )
     //         .then((response) => {})
     //         .catch((err) => {})
@@ -60,6 +61,7 @@ class Contact extends Component {
                 Iure repellat corrupti, cumque blanditiis in qui eaque aliquam natus fuga suscipit quos rem vel voluptate quaerat quia dolores, laborum facere expedita, adipisci illo iste? Provident eligendi nam minima magnam!
                 Adipisci magnam fugiat officia odio saepe suscipit ut quasi deserunt iste, itaque ab et eum assumenda excepturi ducimus ipsum doloremque quis! Ab, consequuntur illo? Iusto delectus voluptatem nulla facilis tempore!</span>
                 </Container>
+                <Footer/>
                 </div>
         )
     }

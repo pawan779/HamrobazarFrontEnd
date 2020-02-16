@@ -17,6 +17,7 @@ import Dashboard from './Dashboard'
 import Usernav from './Usernav'
 import SideNavPage from './SideNavPage'
 import {Link} from 'react-router-dom'
+import Footer from '../home/Footer'
 
 export default class User extends Component {
     constructor(props) {
@@ -35,11 +36,11 @@ export default class User extends Component {
 
     componentDidMount() {
         Axios
-            .get('http://192.168.1.21:3001/users/me', this.state.config)
+            .get('http://localhost:3001/users/me', this.state.config)
             .then((response) => {
                 console.log(response)
                 this
-                    .setState({users: response.data, path: "http://192.168.1.21:3001/uploads/"})
+                    .setState({users: response.data, path: "http://localhost:3001/uploads/"})
                     .catch(err => {
                         console.log(err)
                     })
@@ -91,6 +92,7 @@ export default class User extends Component {
                     </Row>
 
                 </Container>
+                <Footer/>
             </div>
         )
     }
